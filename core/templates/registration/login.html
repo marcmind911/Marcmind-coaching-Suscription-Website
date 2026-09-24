@@ -1,0 +1,1866 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MARCMIND | Login</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- =====================================================
+         ALL CSS IS EMBEDDED BELOW
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           MARCMIND BRAND COLORS
+        ====================================================== */
+
+        :root {
+
+            --cream: #F7F0E6;
+            --cream-light: #FCF9F3;
+
+            --teal: #285B5E;
+            --teal-light: #3E7377;
+
+            --terracotta: #C77D5E;
+
+            --gold: #D8A15D;
+
+            --brown: #603B38;
+            --brown-dark: #4A2E2C;
+
+            --charcoal: #26383A;
+
+            --gray: #6E7777;
+
+            --border: #D9D0C5;
+
+            --white: #FFFFFF;
+        }
+
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                "DM Sans",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: var(--cream);
+
+            color: var(--charcoal);
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           MAIN LOGIN PAGE
+        ====================================================== */
+
+        .login-page {
+
+            min-height: 100vh;
+
+            display: grid;
+
+            grid-template-columns: 48% 52%;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           LEFT LOGIN AREA
+        ====================================================== */
+
+        .login-section {
+
+            min-height: 100vh;
+
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            padding: 45px 8%;
+
+            background:
+
+                radial-gradient(
+                    circle at 5% 10%,
+                    rgba(62, 115, 119, 0.10),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(199, 125, 94, 0.12),
+                    transparent 30%
+                ),
+
+                var(--cream);
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           DECORATIVE CORNER
+        ====================================================== */
+
+        .corner-decoration {
+
+            position: absolute;
+
+            top: -120px;
+            left: -120px;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            border: 5px solid var(--teal);
+
+            opacity: 0.8;
+
+            pointer-events: none;
+        }
+
+
+        .corner-decoration::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 205px;
+            height: 205px;
+
+            top: 25px;
+            left: 25px;
+
+            border-radius: 50%;
+
+            border: 3px solid var(--terracotta);
+        }
+
+
+        /* =====================================================
+           BRAND
+        ====================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 30px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .brand-logo img {
+
+            width: 76px;
+            height: 76px;
+
+            object-fit: contain;
+        }
+
+
+        .brand-name {
+
+            font-size: 38px;
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            letter-spacing: 1px;
+
+            color: var(--teal);
+        }
+
+
+        .brand-name span {
+
+            color: var(--terracotta);
+        }
+
+
+        .brand-subtitle {
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.7px;
+
+            color: var(--charcoal);
+
+            margin-top: 7px;
+        }
+
+
+        .brand-motto {
+
+            font-size: 8px;
+
+            letter-spacing: 3px;
+
+            color: var(--gold);
+
+            font-weight: 600;
+
+            margin-top: 7px;
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ====================================================== */
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 610px;
+
+            padding: 42px 48px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.97),
+                    rgba(252,249,243,0.95)
+                );
+
+            border-radius: 16px;
+
+            border: 1px solid
+                rgba(217,208,197,0.9);
+
+            box-shadow:
+
+                0 25px 70px
+                rgba(38,56,58,0.12),
+
+                0 5px 20px
+                rgba(38,56,58,0.05);
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           TOP BRAND ACCENT
+        ====================================================== */
+
+        .accent-line {
+
+            display: flex;
+
+            width: 130px;
+
+            height: 4px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+        }
+
+
+        .accent-line span:nth-child(1) {
+
+            flex: 1;
+
+            background: var(--teal);
+        }
+
+
+        .accent-line span:nth-child(2) {
+
+            flex: 1;
+
+            background: var(--terracotta);
+        }
+
+
+        .accent-line span:nth-child(3) {
+
+            flex: 1;
+
+            background: var(--gold);
+        }
+
+
+        /* =====================================================
+           LOGIN HEADING
+        ====================================================== */
+
+        .login-card h1 {
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: clamp(38px, 4vw, 54px);
+
+            line-height: 1.1;
+
+            color: var(--teal);
+
+            margin-bottom: 16px;
+
+            letter-spacing: -1.5px;
+        }
+
+
+        .login-card h1 span {
+
+            color: var(--terracotta);
+        }
+
+
+        /* =====================================================
+           WELCOME MESSAGE
+        ====================================================== */
+
+        .welcome-text {
+
+            color: var(--gray);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            max-width: 450px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           FORM
+        ====================================================== */
+
+        .login-form {
+
+            width: 100%;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 22px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: var(--teal);
+
+            margin-bottom: 9px;
+        }
+
+
+        /* =====================================================
+           INPUT
+        ====================================================== */
+
+        .input-wrapper {
+
+            position: relative;
+
+            width: 100%;
+        }
+
+
+        .input-wrapper input {
+
+            width: 100%;
+
+            height: 58px;
+
+            padding: 0 52px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,0.65);
+
+            color: var(--charcoal);
+
+            font-family:
+                "DM Sans",
+                sans-serif;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition:
+                all 0.25s ease;
+        }
+
+
+        .input-wrapper input::placeholder {
+
+            color: #929898;
+        }
+
+
+        .input-wrapper input:hover {
+
+            border-color: #BBAFA2;
+        }
+
+
+        .input-wrapper input:focus {
+
+            background: var(--white);
+
+            border-color: var(--teal-light);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(62,115,119,0.10);
+        }
+
+
+        /* =====================================================
+           INPUT ICON
+        ====================================================== */
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 18px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 22px;
+            height: 22px;
+
+            color: var(--teal);
+
+            z-index: 2;
+
+            pointer-events: none;
+        }
+
+
+        .input-icon svg {
+
+            width: 100%;
+            height: 100%;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        /* =====================================================
+           PASSWORD EYE BUTTON
+        ====================================================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 30px;
+            height: 30px;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--gray);
+
+            cursor: pointer;
+
+            padding: 5px;
+        }
+
+
+        .password-toggle:hover {
+
+            color: var(--teal);
+        }
+
+
+        .password-toggle svg {
+
+            width: 100%;
+            height: 100%;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.7;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        /* =====================================================
+           ACCOUNT LINKS
+        ====================================================== */
+
+        .account-links {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin: 5px 0 30px;
+
+            font-size: 13px;
+        }
+
+
+        .account-links a {
+
+            color: var(--teal);
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .account-links a:hover {
+
+            color: var(--terracotta);
+
+            text-decoration: underline;
+        }
+
+
+        .account-links span {
+
+            color: #B6AAA0;
+        }
+
+
+        /* =====================================================
+           SIGN IN BUTTON
+        ====================================================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 60px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--brown-dark),
+                    var(--brown)
+                );
+
+            color: var(--white);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            font-family:
+                "DM Sans",
+                sans-serif;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 10px 25px
+                rgba(74,46,44,0.20);
+
+            transition:
+
+                transform 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                background 0.25s ease;
+        }
+
+
+        .login-button .arrow {
+
+            font-size: 27px;
+
+            line-height: 1;
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .login-button:hover {
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--teal),
+                    var(--teal-light)
+                );
+
+            transform: translateY(-2px);
+
+            box-shadow:
+
+                0 14px 30px
+                rgba(40,91,94,0.25);
+        }
+
+
+        .login-button:hover .arrow {
+
+            transform: translateX(6px);
+        }
+
+
+        .login-button:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           DJANGO ERROR MESSAGES
+        ====================================================== */
+
+        .errorlist {
+
+            list-style: none;
+
+            padding: 0;
+
+            margin: 7px 0 10px;
+
+            color: #A54B42;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .error-message {
+
+            background:
+                rgba(165,75,66,0.08);
+
+            border-left:
+                3px solid #A54B42;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+
+            color: #8E4038;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .login-footer {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: var(--gray);
+        }
+
+
+        .login-footer span {
+
+            margin: 0 7px;
+
+            color: var(--terracotta);
+        }
+
+
+        .login-footer strong {
+
+            color: var(--teal);
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           RIGHT HERO
+        ====================================================== */
+
+        .hero-section {
+
+            min-height: 100vh;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: var(--teal);
+        }
+
+
+        /* =====================================================
+           HERO IMAGE
+
+           Change this image to your existing MARCMIND image.
+        ====================================================== */
+
+        .hero-image {
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+
+                url("{% static 'images/marcmind-login-hero.jpg' %}");
+
+            background-size: cover;
+
+            background-position: center;
+
+            transform: scale(1.02);
+        }
+
+
+        /* =====================================================
+           HERO OVERLAY
+        ====================================================== */
+
+        .hero-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    rgba(38,56,58,0.08),
+                    rgba(38,56,58,0.15) 45%,
+                    rgba(38,56,58,0.72)
+                );
+        }
+
+
+        /* =====================================================
+           HERO BRAND
+        ====================================================== */
+
+        .hero-brand {
+
+            position: absolute;
+
+            top: 55px;
+
+            right: 55px;
+
+            z-index: 3;
+
+            text-align: center;
+        }
+
+
+        .hero-brand img {
+
+            width: 190px;
+
+            max-width: 100%;
+
+            filter:
+
+                drop-shadow(
+                    0 4px 15px
+                    rgba(0,0,0,0.25)
+                );
+        }
+
+
+        /* =====================================================
+           HERO TEXT
+        ====================================================== */
+
+        .hero-message {
+
+            position: absolute;
+
+            left: 15%;
+
+            bottom: 40%;
+
+            z-index: 3;
+
+            color: white;
+        }
+
+
+        .hero-message h2 {
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size:
+                clamp(42px, 5vw, 70px);
+
+            line-height: 1.05;
+
+            font-weight: 500;
+
+            font-style: italic;
+
+            letter-spacing: -1px;
+
+            text-shadow:
+                0 4px 20px
+                rgba(0,0,0,0.25);
+        }
+
+
+        .hero-line {
+
+            width: 100px;
+
+            height: 3px;
+
+            background: var(--gold);
+
+            margin: 22px 0;
+        }
+
+
+        .hero-message p {
+
+            font-size: 15px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            line-height: 1.8;
+
+            color:
+                rgba(255,255,255,0.90);
+        }
+
+
+        /* =====================================================
+           HERO CORNER DECORATION
+        ====================================================== */
+
+        .hero-decoration {
+
+            position: absolute;
+
+            right: -110px;
+
+            bottom: -120px;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            border: 7px solid var(--gold);
+
+            z-index: 2;
+        }
+
+
+        .hero-decoration::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            top: 20px;
+            left: 20px;
+
+            border-radius: 50%;
+
+            border: 5px solid var(--terracotta);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (max-width: 1000px) {
+
+            .login-page {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .hero-section {
+
+                min-height: 480px;
+
+                order: -1;
+            }
+
+
+            .login-section {
+
+                min-height: auto;
+
+                padding: 50px 7%;
+            }
+
+
+            .login-card {
+
+                max-width: 700px;
+
+                margin: auto;
+            }
+
+
+            .brand {
+
+                justify-content: center;
+            }
+
+
+            .login-footer {
+
+                text-align: center;
+            }
+
+
+            .hero-message {
+
+                left: 8%;
+
+                bottom: 10%;
+            }
+
+
+            .hero-brand {
+
+                top: 35px;
+
+                right: 35px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 650px) {
+
+            .login-page {
+
+                display: block;
+            }
+
+
+            .hero-section {
+
+                min-height: 310px;
+
+                height: 310px;
+            }
+
+
+            .hero-brand {
+
+                top: 22px;
+
+                right: 22px;
+            }
+
+
+            .hero-brand img {
+
+                width: 125px;
+            }
+
+
+            .hero-message {
+
+                left: 25px;
+
+                bottom: 25px;
+            }
+
+
+            .hero-message h2 {
+
+                font-size: 34px;
+            }
+
+
+            .hero-message p {
+
+                font-size: 10px;
+
+                letter-spacing: 1.5px;
+            }
+
+
+            .hero-line {
+
+                margin: 12px 0;
+
+                width: 65px;
+            }
+
+
+            .login-section {
+
+                padding: 35px 18px 25px;
+            }
+
+
+            .brand {
+
+                justify-content: center;
+
+                margin-bottom: 25px;
+
+                gap: 10px;
+            }
+
+
+            .brand-logo img {
+
+                width: 55px;
+
+                height: 55px;
+            }
+
+
+            .brand-name {
+
+                font-size: 27px;
+            }
+
+
+            .brand-subtitle {
+
+                font-size: 7px;
+
+                letter-spacing: 1px;
+            }
+
+
+            .brand-motto {
+
+                font-size: 6px;
+
+                letter-spacing: 1.7px;
+            }
+
+
+            .login-card {
+
+                padding: 30px 22px;
+
+                border-radius: 15px;
+            }
+
+
+            .login-card h1 {
+
+                font-size: 36px;
+            }
+
+
+            .welcome-text {
+
+                font-size: 14px;
+
+                line-height: 1.6;
+            }
+
+
+            .input-wrapper input {
+
+                height: 54px;
+
+                font-size: 14px;
+            }
+
+
+            .login-button {
+
+                height: 56px;
+
+                font-size: 16px;
+            }
+
+
+            .account-links {
+
+                justify-content: center;
+
+                gap: 6px;
+
+                font-size: 11px;
+
+                text-align: center;
+            }
+
+
+            .login-footer {
+
+                font-size: 10px;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+        ====================================================== */
+
+        @media (max-width: 380px) {
+
+            .hero-section {
+
+                min-height: 250px;
+
+                height: 250px;
+            }
+
+
+            .hero-message h2 {
+
+                font-size: 29px;
+            }
+
+
+            .login-card h1 {
+
+                font-size: 31px;
+            }
+
+
+            .account-links {
+
+                flex-direction: column;
+
+                gap: 8px;
+            }
+
+
+            .account-links span {
+
+                display: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     MAIN LOGIN PAGE
+========================================================== -->
+
+<main class="login-page">
+
+
+    <!-- =====================================================
+         LOGIN SECTION
+    ====================================================== -->
+
+    <section class="login-section">
+
+
+        <!-- Decorative background -->
+
+        <div class="corner-decoration"></div>
+
+
+        <!-- =================================================
+             MARCMIND BRAND
+        ================================================== -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+
+                <img
+                    src="{% static 'core/images/logomarcel.jpeg' %}"
+                    alt="MARCMIND Logo">
+
+            </div>
+
+
+            <div>
+
+                <div class="brand-name">
+
+                    MARC<span>MIND</span>
+
+                </div>
+
+
+                <div class="brand-subtitle">
+
+                    REALIGN COACHING &amp; CONSULTING
+
+                </div>
+
+
+                <div class="brand-motto">
+
+                    PURPOSE&nbsp;&nbsp;•&nbsp;&nbsp;
+                    GROWTH&nbsp;&nbsp;•&nbsp;&nbsp;
+                    IMPACT
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOGIN CARD
+        ================================================== -->
+
+        <div class="login-card">
+
+
+            <!-- Brand accent -->
+
+            <div class="accent-line">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+
+            <!-- Heading -->
+
+            <h1>
+                Marc<span>Mind</span> Login
+            </h1>
+
+
+            <!-- Description -->
+
+            <p class="welcome-text">
+
+                Sign in to continue your journey of
+                clarity, purpose and growth.
+
+            </p>
+
+
+
+            <!-- =================================================
+                 DJANGO LOGIN FORM
+            ================================================== -->
+
+            <form
+                method="POST"
+                action=""
+                class="login-form">
+
+                {% csrf_token %}
+                
+
+                <!-- Django general errors -->
+
+                {% if form.non_field_errors %}
+
+                    <div class="error-message">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     USERNAME
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label
+                        for="{{ form.username.id_for_label }}">
+
+                        Username
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <!-- User icon -->
+
+                        <span class="input-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M20 21a8 8 0 0 0-16 0"/>
+
+                                <circle
+                                    cx="12"
+                                    cy="7"
+                                    r="4"/>
+
+                            </svg>
+
+                        </span>
+
+
+                        <!-- Django username -->
+
+                        {{ form.username }}
+
+                    </div>
+
+
+                    {% if form.username.errors %}
+
+                        <div class="errorlist">
+
+                            {{ form.username.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PASSWORD
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label
+                        for="{{ form.password.id_for_label }}">
+
+                        Password
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <!-- Lock icon -->
+
+                        <span class="input-icon">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <rect
+                                    x="4"
+                                    y="10"
+                                    width="16"
+                                    height="11"
+                                    rx="2"/>
+
+                                <path
+                                    d="M8 10V7a4 4 0 0 1 8 0v3"/>
+
+                            </svg>
+
+                        </span>
+
+
+                        <!-- Django password -->
+
+                        {{ form.password }}
+
+
+                        <!-- Show password -->
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password">
+
+
+                            <svg
+                                id="eye-icon"
+                                viewBox="0 0 24 24">
+
+                                <path
+                                    d="M2 12s3.5-7 10-7
+                                    10 7 10 7-3.5 7-10 7
+                                    -10-7-10-7z"/>
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="3"/>
+
+                            </svg>
+                            Sign in
+
+                        </button>
+
+                    </div>
+
+
+                    {% if form.password.errors %}
+
+                        <div class="errorlist">
+
+                            {{ form.password.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ACCOUNT LINKS
+                ================================================== -->
+
+                <div class="account-links">
+
+
+                    <a href="{% url 'password_reset' %}">
+                        Forgot password?
+                    </a>
+
+
+                    <span>|</span>
+
+
+                    <a href="{% url 'username_reminder' %}">
+                        Forgot username?
+                    </a>
+
+
+                    <span>|</span>
+
+
+                    <a href="{% url 'signup' %}">
+                        Create an account
+                    </a>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SIGN IN
+                ================================================== -->
+
+                <button
+                    type="submit"
+                    class="login-button">
+
+                    <span>
+                        Sign in
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <div class="login-footer">
+
+            © 2026 MARCMIND
+
+            <span>•</span>
+
+            <strong>
+                Realign Coaching &amp; Consulting
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="hero-section">
+
+
+        <!-- =================================================
+             HERO IMAGE
+
+             Replace marcmind-login-hero.jpg with the
+             existing photograph from your website.
+        ================================================== -->
+
+        <div class="hero-image"></div>
+
+
+        <!-- Image overlay -->
+
+        <div class="hero-overlay"></div>
+
+
+
+        <!-- =================================================
+             HERO LOGO
+        ================================================== -->
+
+        
+
+
+
+        <!-- =================================================
+             HERO MESSAGE
+        ================================================== -->
+
+        <div class="hero-message">
+
+
+            <h2>
+
+                Better Mindset.
+
+                <br>
+
+                Greater Impact.
+
+            </h2>
+
+
+            <div class="hero-line"></div>
+
+
+            <p>
+
+                Think strategically.
+
+                <br>
+
+                Live on purpose.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- Decorative circle -->
+
+        <div class="hero-decoration"></div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+    function togglePassword() {
+
+        const password =
+            document.getElementById(
+                "id_password"
+            );
+
+        const eye =
+            document.getElementById(
+                "eye-icon"
+            );
+
+
+        /*
+         * Some Django forms may use a different
+         * password ID. This fallback finds it.
+         */
+
+        const passwordField =
+            password ||
+            document.querySelector(
+                'input[type="password"], input[name="password"]'
+            );
+
+
+        if (!passwordField) {
+            return;
+        }
+
+
+        if (
+            passwordField.type ===
+            "password"
+        ) {
+
+            passwordField.type =
+                "text";
+
+
+            eye.innerHTML = `
+
+                <path
+                    d="M3 3l18 18"/>
+
+                <path
+                    d="M10.6 10.6
+                       a2 2 0 0 0
+                       2.8 2.8"/>
+
+                <path
+                    d="M9.9 4.2
+                       A10.8 10.8 0 0 1
+                       12 5
+                       c6.5 0 10 7 10 7
+                       a18.7 18.7 0 0 1
+                       -3.2 3.9"/>
+
+                <path
+                    d="M6.1 6.1
+                       C3.4 8.1 2 12 2 12
+                       s3.5 7 10 7
+                       a10.8 10.8 0 0 0
+                       3.3-.5"/>
+
+            `;
+
+        }
+
+        else {
+
+            passwordField.type =
+                "password";
+
+
+            eye.innerHTML = `
+
+                <path
+                    d="M2 12s3.5-7 10-7
+                       10 7 10 7
+                       -3.5 7-10 7
+                       -10-7-10-7z"/>
+
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="3"/>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ADD PLACEHOLDERS TO DJANGO INPUTS
+    ====================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const username =
+                document.querySelector(
+                    'input[name="username"]'
+                );
+
+            const password =
+                document.querySelector(
+                    'input[name="password"]'
+                );
+
+
+            if (username) {
+
+                username.placeholder =
+                    "Enter your username";
+
+                username.autocomplete =
+                    "username";
+            }
+
+
+            if (password) {
+
+                password.placeholder =
+                    "Enter your password";
+
+                password.autocomplete =
+                    "current-password";
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>

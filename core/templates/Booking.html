@@ -1,0 +1,504 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MarcMind | Booking</title>
+
+    <style>
+        .booking-page {
+            padding: 100px 0;
+            background: radial-gradient(circle at 10% 15%, rgba(217, 165, 46, 0.13), transparent 28%), linear-gradient(135deg, #002829 0%, #001b1c 100%);
+            color: #ffffff;
+        }
+
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .section-label {
+            color: #edc35d;
+            font-size: 12px;
+            letter-spacing: 3px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .booking-intro h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(42px, 5vw, 62px);
+            line-height: 1.08;
+            margin-bottom: 22px;
+        }
+
+            .booking-intro h1 span {
+                color: #d9a52e;
+            }
+
+        .booking-lead {
+            max-width: 550px;
+            color: #cfdbd9;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        .booking-notice {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            border: 1px solid rgba(217, 165, 46, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            max-width: 560px;
+        }
+
+        .notice-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            color: #002829;
+            background: #d9a52e;
+            border-radius: 50%;
+            font-weight: 800;
+        }
+
+        .booking-notice strong {
+            color: #edc35d;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .booking-notice p {
+            color: #d4dfdd;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .booking-steps {
+            margin-top: 35px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .booking-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+            .booking-step span {
+                color: #d9a52e;
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                font-weight: 700;
+            }
+
+            .booking-step p {
+                color: #dce5e4;
+                margin: 0;
+            }
+
+        /* Booking form */
+        .booking-card {
+            background: #ffffff;
+            color: #233334;
+            border-radius: 16px;
+            padding: 42px;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-heading {
+            border-bottom: 1px solid #e8e6dd;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+        }
+
+            .card-heading p {
+                color: #d9a52e;
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+            }
+
+            .card-heading h2 {
+                color: #003c3d;
+                font-family: "Playfair Display", serif;
+                font-size: 32px;
+            }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: #003c3d;
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                border: 1px solid #d9dfdc;
+                border-radius: 7px;
+                background: #ffffff;
+                color: #233334;
+                font-family: inherit;
+                font-size: 14px;
+                padding: 14px 15px;
+                outline: none;
+            }
+
+                .form-group input:focus,
+                .form-group select:focus {
+                    border-color: #d9a52e;
+                    box-shadow: 0 0 0 3px rgba(217, 165, 46, 0.15);
+                }
+
+        .price-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 18px;
+            padding: 16px;
+            background: #f6f8f6;
+            border-left: 4px solid #d9a52e;
+        }
+
+            .price-summary span {
+                color: #5e6d6c;
+                font-size: 14px;
+            }
+
+            .price-summary strong {
+                color: #003c3d;
+                font-size: 18px;
+            }
+
+        .payment-message {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #627170;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+            .payment-message p {
+                margin: 0;
+            }
+
+        .booking-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 7px;
+            padding: 16px;
+            background: #003c3d;
+            color: #ffffff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            transition: 0.25s ease;
+        }
+
+            .booking-btn span {
+                margin-left: 8px;
+                font-size: 18px;
+            }
+
+            .booking-btn:hover {
+                background: #d9a52e;
+                color: #001b1c;
+                transform: translateY(-2px);
+            }
+
+        .form-note {
+            color: #7a8584;
+            font-size: 11px;
+            line-height: 1.5;
+            text-align: center;
+            margin: 15px 0 0;
+        }
+
+        @media (max-width: 900px) {
+            .booking-layout {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .booking-page {
+                padding: 70px 0;
+            }
+
+            .booking-card {
+                padding: 28px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .booking-intro h1 {
+                font-size: 42px;
+            }
+        }
+
+        .payment-buttons {
+          display: flex;
+           gap: 15px;
+         margin-top: 25px;
+          flex-wrap: wrap;
+}
+
+.booking-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.booking-btn span {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.booking-btn:hover span {
+    transform: translateX(5px);
+}
+
+.stripe-btn {
+    background: #635bff;
+    color: white;
+}
+
+.stripe-btn:hover {
+    background: #5048d8;
+    transform: translateY(-2px);
+}
+
+.paystack-btn {
+    background: #0aa36d;
+    color: white;
+}
+
+.paystack-btn:hover {
+    background: #078558;
+    transform: translateY(-2px);
+}
+
+.payment-message {
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 12px;
+    background: #f8f6f1;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.payment-message span {
+    font-size: 22px;
+}
+
+.payment-message p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.form-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #777;
+}
+    </style>
+</head>
+<body>
+    <section class="booking-page" id="booking">
+        <div class="container booking-layout">
+
+            <div class="booking-intro">
+                <p class="section-label">BOOK A SESSION</p>
+                <h1>Invest in Your <span>Transformation.</span></h1>
+                <p class="booking-lead">
+                    Choose the support that fits your current season. Your coaching or
+                    mentorship session is confirmed once payment has been completed.
+                </p>
+
+                <div class="booking-notice">
+                    <span class="notice-icon">✓</span>
+                    <div>
+                        <strong>Payment confirms your session.</strong>
+                        <p>
+                            After payment, submit your details below. MarcMind will contact you
+                            to confirm your session date, time, and access information.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="booking-steps">
+                    <div class="booking-step">
+                        <span>01</span>
+                        <p>Choose your preferred service.</p>
+                    </div>
+                    <div class="booking-step">
+                        <span>02</span>
+                        <p>Complete your secure payment.</p>
+                    </div>
+                    <div class="booking-step">
+                        <span>03</span>
+                        <p>Get access to a Coach.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="card-heading">
+                    <p>START YOUR JOURNEY</p>
+                    <h2>Reserve Your Session</h2>
+                </div>
+
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input id="fullName" name="fullName" type="text" placeholder="Your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input id="email" name="email" type="email" placeholder="you@email.com" required>
+                        </div>
+                    </div>
+
+                    
+            <div class="form-group">
+              <label for="service">Choose a Service</label>
+
+               <select id="service" name="service" required>
+                      <option value="" selected disabled>
+                           Select a service
+                      </option>
+
+                  {% for service in services %}
+                     {% if service.active %}
+                       <option value="{{ service.id }}">
+                           {{ service.name }}
+                          — {{ service.currency }} {{ service.amount|floatformat:2 }}
+                      </option>
+                     {% endif %}
+                  {% empty %}
+                   <option value="" disabled>
+                        No services available
+                    </option>
+                  {% endfor %}
+                 </select>
+          <div>
+
+                    
+
+                    
+                    <div class="payment-message">
+                     <span>🔒</span>
+
+                       <p>
+                           Your booking is only confirmed after payment.
+                           You will be redirected to our secure payment page
+                           after submitting this form.
+                        </p>
+                    </div>
+
+              <div class="payment-buttons">
+
+                   <a href="#"
+                      id="stripeButton"
+                      class="booking-btn stripe-btn">
+                      Pay with Stripe <span>→</span>
+                   </a>
+
+                   <a href="#"
+                      id="paystackButton"
+                      class="booking-btn paystack-btn">
+                      Pay with Paystack <span>→</span>
+                   </a>
+
+                </div>
+
+                <p class="form-note">
+                      By continuing, you agree that payment is required before
+                      a session can be confirmed or accessed.
+                    </p>
+                    
+
+
+                                             
+
+
+
+
+
+
+                    
+                </form>
+            </div>
+
+        </div>
+    </section>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const serviceSelect = document.getElementById("service");
+    const stripeButton = document.getElementById("stripeButton");
+    const paystackButton = document.getElementById("paystackButton");
+
+    function checkout(provider) {
+
+        const serviceId = serviceSelect.value;
+
+        if (!serviceId) {
+            alert("Please select a service first.");
+            return;
+        }
+
+        window.location.href =
+            `/checkout/${serviceId}/${provider}/`;
+    }
+
+    stripeButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        checkout("stripe");
+    });
+
+    paystackButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        checkout("paystack");
+    });
+
+});
+</script>
+</body>
+</html>

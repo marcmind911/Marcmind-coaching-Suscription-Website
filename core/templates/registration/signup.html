@@ -1,0 +1,677 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | MARCMIND</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15, 45, 40, 0.96),
+                    rgba(36, 84, 72, 0.90),
+                    rgba(191, 151, 65, 0.78)
+                ),
+                url("{% static 'images/login-bg.jpg' %}");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            padding: 30px 15px;
+        }
+
+        /* Dark overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.18);
+            z-index: -1;
+        }
+
+        .registration-wrapper {
+            width: 100%;
+            max-width: 470px;
+        }
+
+        .registration-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 25px;
+            padding: 38px 35px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.30),
+                0 8px 25px rgba(0, 0, 0, 0.12);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.55);
+        }
+
+        /* Decorative gold line */
+        .registration-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 5px;
+            background: linear-gradient(
+                90deg,
+                #9f7731,
+                #d4af5a,
+                #9f7731
+            );
+            border-radius: 0 0 10px 10px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .brand-logo {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            margin-bottom: 10px;
+
+            filter:
+                drop-shadow(0 5px 10px rgba(0, 0, 0, 0.15));
+        }
+
+        .brand h1 {
+            color: #214c43;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            margin-top: 5px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-title {
+            text-align: center;
+            color: #214c43;
+            font-size: 23px;
+            margin-bottom: 7px;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #214c43;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9f7731;
+            font-size: 17px;
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #d8ddd9;
+            border-radius: 12px;
+            padding: 0 15px 0 43px;
+            font-size: 14px;
+            color: #333;
+            background: #fafcfb;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .form-control:focus {
+            border-color: #b28a3b;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(178, 138, 59, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .password-toggle:hover {
+            color: #9f7731;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin: 20px 0;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: #9f7731;
+        }
+
+        .terms a {
+            color: #9f7731;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .register-btn {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #214c43,
+                    #2e6659
+                );
+
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(33, 76, 67, 0.25);
+
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9f7731,
+                    #c49b4d
+                );
+
+            box-shadow:
+                0 10px 25px rgba(159, 119, 49, 0.30);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .login-link a {
+            color: #214c43;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            color: #9f7731;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 23px 0;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e5e5;
+        }
+
+        .messages {
+            margin-bottom: 18px;
+        }
+
+        .message {
+            padding: 11px 13px;
+            border-radius: 9px;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .message.error {
+            background: #fff0f0;
+            color: #a33;
+            border: 1px solid #f0caca;
+        }
+
+        .message.success {
+            background: #eefaf4;
+            color: #28734d;
+            border: 1px solid #cce8d8;
+        }
+
+        .field-errors {
+            color: #b43d3d;
+            font-size: 12px;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+        }
+
+        /* Mobile */
+        @media (max-width: 520px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .registration-card {
+                padding: 32px 22px;
+                border-radius: 21px;
+            }
+
+            .brand-logo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .brand h1 {
+                font-size: 23px;
+            }
+
+            .form-title {
+                font-size: 21px;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            .registration-card {
+                padding: 28px 17px;
+            }
+
+            .form-control {
+                height: 47px;
+            }
+
+            .register-btn {
+                height: 49px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="registration-wrapper">
+
+    <div class="registration-card">
+
+        <!-- BRAND -->
+        <div class="brand">
+
+            <!-- Replace with your actual MARCMIND logo -->
+            <img
+                src="{% static 'core/images/logo.jpg' %}"
+                alt="MARCMIND Logo"
+                class="brand-logo"
+            >
+
+            <h1>MARCMIND</h1>
+
+            <p>Smart thinking. Better possibilities.</p>
+
+        </div>
+
+
+        <h2 class="form-title">Create Your Account</h2>
+
+        <p class="form-subtitle">
+            Join MARCMIND and get started today.
+        </p>
+
+
+        <!-- Django Messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <!-- Registration Form -->
+        <form method="POST" action="{% url 'signup' %}">
+
+            {% csrf_token %}
+
+
+            <!-- Username -->
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">👤</span>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Enter your username"
+                        value="{{ form.username.value|default:'' }}"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                {% if form.username.errors %}
+                    <div class="field-errors">
+                        {{ form.username.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Email -->
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">✉</span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Enter your email address"
+                        value="{{ form.email.value|default:'' }}"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                {% if form.email.errors %}
+                    <div class="field-errors">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label for="password1">
+                    Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">🔒</span>
+
+                    <input
+                        type="password"
+                        id="password1"
+                        name="password1"
+                        class="form-control"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('password1', this)"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+                {% if form.password1.errors %}
+                    <div class="field-errors">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+
+                <label for="password2">
+                    Confirm Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">🔐</span>
+
+                    <input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        class="form-control"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('password2', this)"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+                {% if form.password2.errors %}
+                    <div class="field-errors">
+                        {{ form.password2.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Terms -->
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    required
+                >
+
+                <label for="terms">
+                    I agree to the
+                    <a href="#">Terms & Conditions</a>
+                    and
+                    <a href="#">Privacy Policy</a>.
+                </label>
+
+            </div>
+
+
+            <!-- Register Button -->
+            <button
+                type="submit"
+                class="register-btn"
+            >
+                CREATE ACCOUNT
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            Already have an account?
+        </div>
+
+
+        <!-- Login Link -->
+        <div class="login-link">
+
+            <a href="{% url 'login' %}">
+                Sign in to MARCMIND
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        © {% now "Y" %} MARCMIND. All rights reserved.
+    </div>
+
+</div>
+
+
+<script>
+
+    function togglePassword(inputId, button) {
+
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+
+            input.type = "text";
+            button.textContent = "Hide";
+
+        } else {
+
+            input.type = "password";
+            button.textContent = "Show";
+
+        }
+    }
+
+
+    // Simple password matching feedback
+    const password1 = document.getElementById("password1");
+    const password2 = document.getElementById("password2");
+
+    function checkPasswords() {
+
+        if (!password2.value) {
+            password2.style.borderColor = "";
+            return;
+        }
+
+        if (password1.value === password2.value) {
+
+            password2.style.borderColor = "#58a77d";
+
+        } else {
+
+            password2.style.borderColor = "#d66";
+        }
+    }
+
+    password1.addEventListener("input", checkPasswords);
+    password2.addEventListener("input", checkPasswords);
+
+</script>
+
+</body>
+</html>
+
+
+

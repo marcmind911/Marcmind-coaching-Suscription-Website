@@ -1,0 +1,6 @@
+<h1>MarcMind Login</h1><form method="post">{% csrf_token %}
+    {{ form.as_p }}<button>Sign in</button></form><p>
+        <a href="{% url 'password_reset' %}">Forgot password? ?</a>
+         · <a href="{% url 'username_reminder' %}">
+            Forgot username?</a> · <a href="">
+                Create an account</a></p>

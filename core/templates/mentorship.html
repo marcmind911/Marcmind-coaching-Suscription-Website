@@ -1,0 +1,518 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Mentorship | Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .top-header {
+            background: linear-gradient(135deg, #111827, #1e3a8a);
+            padding: 24px 7%;
+            color: white;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.15);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .brand p {
+            font-size: 13px;
+            opacity: 0.75;
+            margin-top: 3px;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .welcome-section {
+            margin-bottom: 35px;
+        }
+
+        .welcome-section .small-title {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-section h2 {
+            font-size: 36px;
+            line-height: 1.2;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #64748b;
+            font-size: 16px;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           SERVICE GRID
+        ========================= */
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 22px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.07);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+        }
+
+        .service-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.13);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .service-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #eff6ff, #eef2ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+        }
+
+        /* =========================
+           PAID BADGE
+        ========================= */
+
+        .paid-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+            padding: 7px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .paid-dot {
+            width: 7px;
+            height: 7px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+
+        /* =========================
+           SERVICE CONTENT
+        ========================= */
+
+        .service-name {
+            font-size: 21px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .service-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #eef0f4;
+            margin: 20px 0;
+        }
+
+        .access-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .access-info span {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 9px;
+            background: #f1f5f9;
+        }
+
+        /* =========================
+           WHATSAPP BUTTON
+        ========================= */
+
+        .whatsapp-btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background: #16a34a;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 18px rgba(22, 163, 74, 0.18);
+        }
+
+        .whatsapp-btn:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(22, 163, 74, 0.28);
+        }
+
+        .whatsapp-icon {
+            font-size: 19px;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 22px;
+            padding: 70px 25px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .empty-card h3 {
+            font-size: 23px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .empty-card p {
+            color: #64748b;
+            max-width: 500px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .top-header {
+                padding: 20px;
+            }
+
+            .header-content {
+                align-items: flex-start;
+            }
+
+            .brand h1 {
+                font-size: 19px;
+            }
+
+            .brand p {
+                font-size: 11px;
+            }
+
+            .brand-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+            }
+
+            .home-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 35px auto;
+            }
+
+            .welcome-section h2 {
+                font-size: 28px;
+            }
+
+            .welcome-section p {
+                font-size: 14px;
+            }
+
+            .service-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="top-header">
+        <div class="header-content">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    🎓
+                </div>
+
+                <div>
+                    <h1>My Mentorship</h1>
+                    <p>Your learning journey starts here</p>
+                </div>
+            </div>
+
+            <a href="/" class="home-btn">
+                ← Back Home
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <section class="welcome-section">
+            <div class="small-title">
+                Mentorship Dashboard
+            </div>
+
+            <h2>
+                Your Purchased Services
+            </h2>
+
+            <p>
+                Access the mentorship services you have purchased and
+                connect directly with your mentor through WhatsApp.
+            </p>
+        </section>
+
+
+        <!-- PURCHASED SERVICES -->
+
+        {% if purchase %}
+
+            <div class="service-grid">
+
+                {% for service in purchase %}
+
+                    <div class="service-card">
+
+                        <div class="card-top">
+
+                            <div class="service-icon">
+                                🎯
+                            </div>
+
+                            <div class="paid-badge">
+                                <span class="paid-dot"></span>
+                                Paid
+                            </div>
+
+                        </div>
+
+
+                        <h3 class="service-name">
+                            {{ service.service.name }}
+                        </h3>
+
+
+                        <p class="service-description">
+                            Your mentorship service is active.
+                            You can now contact your mentor and
+                            access your purchased service.
+                        </p>
+
+
+                        <div class="divider"></div>
+
+
+                        <div class="access-info">
+                            <span>💬</span>
+                            <div>
+                                <strong>Mentor Access</strong><br>
+                                Connect with your mentor on WhatsApp
+                            </div>
+                        </div>
+
+
+                        <a href="{% url 'whatsapp' %}" class="whatsapp-btn">
+                            <span class="whatsapp-icon">💬</span>
+                            Access WhatsApp
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-card">
+
+                <div class="empty-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    No Mentorship Services Yet
+                </h3>
+
+                <p>
+                    You haven't purchased a mentorship service yet.
+                    Once you complete a purchase, your mentorship
+                    service will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        © © <span id="year"></span> MarcMind Consulting. All rights reserved.
+    </footer>
+
+</body>
+</html>

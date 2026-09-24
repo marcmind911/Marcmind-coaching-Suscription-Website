@@ -1,0 +1,3204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MarcMind | Realign Coaching & Consulting</title>
+
+    <meta name="description"
+          content="MarcMind Realign Coaching & Consulting helps individuals, leaders and businesses realign their mindset, clarify their vision and create lasting impact." />
+
+    <meta name="theme-color" content="#003c3d" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet" />
+
+<style>
+        :root {
+            --teal: #003c3d;
+            --deep-teal: #002829;
+            --dark: #001b1c;
+            --gold: #d9a52e;
+            --gold-light: #edc35d;
+            --white: #ffffff;
+            --cream: #f8f7f2;
+            --text: #233334;
+            --muted: #697777;
+            --border: #e8e6dd;
+            --light-teal: #eaf3f2;
+            --shadow: 0 15px 45px rgba(0, 40, 41, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .logo img {
+                width: 48px;
+                height: 48px;
+                object-fit: contain;
+            }
+
+        .logo-text strong {
+            display: block;
+            font-size: 22px;
+            letter-spacing: 1px;
+            color: var(--teal);
+        }
+
+            .logo-text strong span {
+                color: var(--gold);
+            }
+
+        .logo-text small {
+            display: block;
+            font-size: 7px;
+            letter-spacing: 1px;
+            color: #555;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+            list-style: none;
+        }
+
+            .nav-links a {
+                font-size: 14px;
+                font-weight: 600;
+                color: #344344;
+                transition: .3s;
+            }
+
+                .nav-links a:hover {
+                    color: var(--gold);
+                }
+
+        .nav-cta {
+            background: var(--teal);
+            color: white !important;
+            padding: 12px 19px;
+            border-radius: 30px;
+        }
+
+            .nav-cta:hover {
+                background: var(--gold);
+                color: var(--dark) !important;
+            }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--teal);
+        }
+
+        /* =========================
+           USER ACCOUNT MENU
+        ========================== */
+
+        .user-menu {
+            position: relative;
+            flex-shrink: 0;
+            z-index: 10001;
+        }
+
+        .user-menu-trigger {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 4px 10px 4px 4px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--teal);
+            cursor: pointer;
+            transition: .25s ease;
+        }
+
+        .user-menu-trigger:hover,
+        .user-menu-trigger[aria-expanded="true"] {
+            border-color: var(--gold);
+            box-shadow: 0 8px 24px rgba(0, 40, 41, .10);
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(217, 165, 46, .28);
+        }
+
+        .user-trigger-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+            max-width: 120px;
+        }
+
+        .user-trigger-name {
+            font-size: 12px;
+            font-weight: 700;
+            max-width: 120px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .user-trigger-label {
+            margin-top: 3px;
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .user-menu-arrow {
+            font-size: 16px;
+            line-height: 1;
+            transition: transform .25s ease;
+        }
+
+        .user-menu-trigger[aria-expanded="true"] .user-menu-arrow {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 285px;
+            padding: 10px;
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 22px 55px rgba(0, 40, 41, .16);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-8px) scale(.98);
+            transform-origin: top right;
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+            z-index: 10002;
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .user-dropdown-head {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 10px 12px;
+        }
+
+        .user-dropdown-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--teal);
+            color: var(--gold-light);
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .user-dropdown-identity {
+            min-width: 0;
+        }
+
+        .user-dropdown-name {
+            color: var(--teal);
+            font-weight: 800;
+            font-size: 14px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .user-dropdown-email {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .user-dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2px 6px 7px;
+        }
+
+        .user-dropdown-link,
+        .user-dropdown-logout {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 11px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text);
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .user-dropdown-link:hover,
+        .user-dropdown-logout:hover {
+            background: var(--light-teal);
+            color: var(--teal);
+        }
+
+        .user-dropdown-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #f3f7f6;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .user-dropdown form {
+            margin: 0;
+        }
+
+        .user-dropdown-logout {
+            color: #9f2f2f;
+        }
+
+        .user-dropdown-logout:hover {
+            background: #fff2f2;
+            color: #8e2424;
+        }
+
+        @media (max-width: 1000px) {
+            .user-trigger-text,
+            .user-menu-arrow {
+                display: none;
+            }
+
+            .user-menu-trigger {
+                padding: 3px;
+                border: 0;
+                background: transparent;
+            }
+
+            .user-menu-trigger:hover,
+            .user-menu-trigger[aria-expanded="true"] {
+                box-shadow: none;
+            }
+
+            .user-dropdown {
+                position: fixed;
+                top: 78px;
+                right: 16px;
+                width: min(285px, calc(100vw - 32px));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .user-avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 12px;
+            }
+
+            .user-dropdown {
+                top: 68px;
+            }
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 720px;
+            padding: 85px 0 70px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 80% 25%, rgba(217,165,46,.10), transparent 28%), linear-gradient(135deg, #ffffff 0%, #f5f8f5 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .eyebrow {
+            color: var(--teal);
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 6vw, 76px);
+            line-height: 1.08;
+            color: var(--teal);
+            margin-bottom: 25px;
+        }
+
+            .hero h1 span {
+                color: var(--gold);
+            }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 17px;
+            color: #596767;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 24px;
+            border-radius: 7px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background: var(--gold);
+                color: var(--dark);
+                transform: translateY(-2px);
+            }
+
+        .btn-outline {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: white;
+        }
+
+            .btn-outline:hover {
+                background: var(--teal);
+                color: white;
+            }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            min-height: 540px;
+            align-items: center;
+        }
+
+            .hero-image::before {
+                content: "";
+                position: absolute;
+                width: 470px;
+                height: 470px;
+                background: var(--deep-teal);
+                border-radius: 50%;
+                right: 10px;
+                top: 30px;
+                z-index: 0;
+            }
+
+            .hero-image img {
+                position: relative;
+                z-index: 1;
+                max-height: 590px;
+                width: 100%;
+                object-fit: contain;
+            }
+
+        .hero-badge {
+            position: absolute;
+            z-index: 3;
+            bottom: 30px;
+            left: 15px;
+            background: white;
+            padding: 18px 22px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+
+            .hero-badge strong {
+                display: block;
+                color: var(--teal);
+                font-family: "Playfair Display", serif;
+                font-size: 21px;
+            }
+
+            .hero-badge span {
+                color: var(--muted);
+                font-size: 12px;
+            }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+            margin-top: 55px;
+        }
+
+        .pillar {
+            text-align: center;
+            color: var(--teal);
+        }
+
+        .pillar-icon {
+            font-size: 28px;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .pillar strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .pillar span {
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* =========================
+           TRUST BAR
+        ========================== */
+
+        .trust-bar {
+            background: var(--deep-teal);
+            color: white;
+            padding: 35px 0;
+        }
+
+        .trust-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+            .trust-content p {
+                color: #d7e2df;
+                font-size: 14px;
+            }
+
+        .trust-items {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            color: var(--gold-light);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           SECTION HEADINGS
+        ========================== */
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+            .section-heading .label {
+                color: var(--gold);
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+            }
+
+            .section-heading h2 {
+                font-family: "Playfair Display", serif;
+                color: var(--teal);
+                font-size: clamp(35px, 4vw, 50px);
+                margin-top: 10px;
+                line-height: 1.2;
+            }
+
+            .section-heading p {
+                max-width: 680px;
+                margin: 18px auto 0;
+                color: var(--muted);
+            }
+
+        .gold-line {
+            width: 65px;
+            height: 3px;
+            background: var(--gold);
+            margin: 17px auto 0;
+        }
+
+        /* =========================
+           SERVICES
+        ========================== */
+
+        .services {
+            background: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 22px;
+        }
+
+        .service-card {
+            border: 1px solid var(--border);
+            padding: 35px 25px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 10px 35px rgba(0,0,0,.04);
+            transition: .3s;
+        }
+
+            .service-card:hover {
+                transform: translateY(-8px);
+                border-color: var(--gold);
+                box-shadow: var(--shadow);
+            }
+
+        .service-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--teal);
+            color: var(--gold);
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            color: var(--teal);
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .learn {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           ABOUT
+        ========================== */
+
+        .about {
+            background: var(--deep-teal);
+            color: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 65px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+            .about-image img {
+                width: 100%;
+                border-radius: 15px;
+                max-height: 550px;
+                object-fit: cover;
+            }
+
+        .about-image-card {
+            position: absolute;
+            bottom: -25px;
+            right: -20px;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 20px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+        }
+
+        .about-content .label {
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .about-content h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 47px;
+            line-height: 1.15;
+            margin: 12px 0 20px;
+        }
+
+        .about-content p {
+            color: #cbd8d7;
+            margin-bottom: 20px;
+        }
+
+        .check-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+            .check-list li {
+                margin: 13px 0;
+                color: #edf4f3;
+            }
+
+                .check-list li::before {
+                    content: "✓";
+                    color: var(--gold);
+                    font-weight: bold;
+                    margin-right: 12px;
+                }
+
+        .signature {
+            margin-top: 25px;
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            color: var(--gold-light);
+        }
+
+        /* =========================
+           COACHING
+        ========================== */
+
+        .coaching {
+            background: var(--cream);
+        }
+
+        .coaching-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+        .coaching-card {
+            background: white;
+            border-radius: 14px;
+            padding: 38px 30px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: .3s;
+        }
+
+            .coaching-card:hover {
+                transform: translateY(-7px);
+                box-shadow: var(--shadow);
+            }
+
+            .coaching-card.featured {
+                border: 2px solid var(--gold);
+            }
+
+        .popular {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 7px 15px;
+            border-radius: 0 0 0 10px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .coaching-card .number {
+            color: var(--gold);
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .coaching-card h3 {
+            color: var(--teal);
+            font-size: 22px;
+            margin: 8px 0 12px;
+        }
+
+        .coaching-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .coaching-card ul {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .coaching-card li {
+            font-size: 13px;
+            margin: 9px 0;
+            color: #536262;
+        }
+
+            .coaching-card li::before {
+                content: "✓";
+                color: var(--gold);
+                margin-right: 8px;
+                font-weight: 800;
+            }
+
+        /* =========================
+           PROCESS
+        ========================== */
+
+        .process {
+            background: white;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+        .process-card {
+            text-align: center;
+            padding: 35px 25px;
+            background: var(--cream);
+            border-radius: 12px;
+            transition: .3s;
+        }
+
+            .process-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .process-number {
+            color: var(--gold);
+            font-family: "Playfair Display", serif;
+            font-size: 45px;
+            font-weight: 700;
+        }
+
+        .process-card h3 {
+            color: var(--teal);
+            margin: 8px 0;
+        }
+
+        .process-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* =========================
+           RESOURCES
+        ========================== */
+
+        .resources {
+            background: var(--cream);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: .3s;
+        }
+
+            .resource-card:hover {
+                transform: translateY(-6px);
+                box-shadow: var(--shadow);
+            }
+
+        .resource-image {
+            height: 190px;
+            background: linear-gradient(135deg, var(--teal), var(--deep-teal));
+            display: grid;
+            place-items: center;
+            color: var(--gold);
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .resource-content {
+            padding: 25px;
+        }
+
+        .resource-tag {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .resource-content h3 {
+            color: var(--teal);
+            font-size: 20px;
+            margin: 9px 0;
+        }
+
+        .resource-content p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+
+        /* =========================
+           TESTIMONIALS
+        ========================== */
+
+        .testimonials {
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+        .testimonial {
+            padding: 35px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,.04);
+        }
+
+        .quote {
+            color: var(--gold);
+            font-size: 45px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial p {
+            color: #596767;
+            font-size: 15px;
+            margin: 15px 0 25px;
+        }
+
+        .client {
+            color: var(--teal);
+            font-weight: 800;
+        }
+
+            .client span {
+                display: block;
+                font-size: 12px;
+                color: #888;
+                font-weight: 500;
+            }
+
+        /* =========================
+           FAQ
+        ========================== */
+
+        .faq {
+            background: var(--cream);
+        }
+
+        .faq-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 23px;
+            border: none;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--teal);
+            font-size: 15px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 23px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        .faq-question span {
+            color: var(--gold);
+            font-size: 25px;
+            transition: .3s;
+        }
+
+        /* =========================
+           CTA
+        ========================== */
+
+        .cta {
+            background: linear-gradient(rgba(0,40,41,.96),rgba(0,40,41,.96)), url("images/background.jpg") center/cover;
+            color: white;
+            padding: 90px 0;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 390px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .cta h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px,5vw,58px);
+            line-height: 1.1;
+        }
+
+            .cta h2 span {
+                color: var(--gold);
+            }
+
+        .cta p {
+            color: #d3dfdd;
+            margin: 20px 0;
+            max-width: 550px;
+        }
+
+        .booking-box {
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 12px;
+            padding: 30px;
+            background: rgba(255,255,255,.04);
+        }
+
+            .booking-box h3 {
+                color: var(--gold);
+                margin-bottom: 18px;
+            }
+
+        .booking-info {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+            color: #dce5e4;
+            font-size: 14px;
+        }
+
+        .booking-box .btn {
+            width: 100%;
+            margin-top: 15px;
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* =========================
+           CONTACT
+        ========================== */
+
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 55px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-family: "Playfair Display", serif;
+            color: var(--teal);
+            font-size: 45px;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .contact-info > p {
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-teal);
+            color: var(--gold);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: var(--teal);
+            font-size: 14px;
+        }
+
+        .contact-item span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .contact-form {
+            background: var(--cream);
+            padding: 35px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+            .contact-form h3 {
+                color: var(--teal);
+                font-family: "Playfair Display", serif;
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+            .form-group label {
+                display: block;
+                color: var(--teal);
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 7px;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                width: 100%;
+                border: 1px solid #dcded7;
+                background: white;
+                border-radius: 6px;
+                padding: 13px 14px;
+                outline: none;
+                color: var(--text);
+            }
+
+                .form-group input:focus,
+                .form-group textarea:focus,
+                .form-group select:focus {
+                    border-color: var(--gold);
+                }
+
+            .form-group textarea {
+                min-height: 125px;
+                resize: vertical;
+            }
+
+        .contact-form .btn {
+            width: 100%;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #00191a;
+            color: white;
+            padding: 65px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 45px;
+        }
+
+        footer h3 {
+            color: var(--gold);
+            font-size: 15px;
+            margin-bottom: 18px;
+        }
+
+        footer p,
+        footer a {
+            color: #aebdbc;
+            font-size: 13px;
+            display: block;
+            margin: 9px 0;
+        }
+
+            footer a:hover {
+                color: var(--gold);
+            }
+
+        .footer-brand strong {
+            font-size: 25px;
+            color: white;
+        }
+
+            .footer-brand strong span {
+                color: var(--gold);
+            }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+            .socials a {
+                width: 38px;
+                height: 38px;
+                border: 1px solid rgba(255,255,255,.2);
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                margin: 0;
+            }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 20px;
+            color: #879796;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        .back-top {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 45px;
+            height: 45px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            display: none;
+            place-items: center;
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+            .back-top.show {
+                display: grid;
+            }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 1000px) {
+
+            .nav-links {
+                position: absolute;
+                top: 82px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 25px;
+                gap: 20px;
+                display: none;
+                box-shadow: 0 15px 30px rgba(0,0,0,.08);
+            }
+
+                .nav-links.active {
+                    display: flex;
+                }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .cta-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+                .hero-image::before {
+                    width: 350px;
+                    height: 350px;
+                }
+
+            .services-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .coaching-grid,
+            .resources-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: 70px;
+            }
+
+            .nav-links {
+                top: 70px;
+            }
+
+            .logo-text strong {
+                font-size: 18px;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+
+                .hero h1 {
+                    font-size: 44px;
+                }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-image {
+                min-height: 390px;
+            }
+
+                .hero-image::before {
+                    width: 290px;
+                    height: 290px;
+                }
+
+            .hero-badge {
+                bottom: 5px;
+                left: 0;
+            }
+
+            .pillars {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .services-grid,
+            .coaching-grid,
+            .resources-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content h2,
+            .contact-info h2 {
+                font-size: 37px;
+            }
+
+            .about-image-card {
+                right: 10px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .copyright {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+            .nav-dropdown > .nav-link {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+        .dropdown-arrow {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 15px);
+            left: 0;
+            min-width: 280px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 10px 0;
+            margin: 0;
+            list-style: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            z-index: 9999;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+            .dropdown-menu li a {
+                display: block;
+                padding: 13px 20px;
+                color: #12343b;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+            }
+
+                .dropdown-menu li a:hover {
+                    background: #f3f8f8;
+                    color: #008c95;
+                    padding-left: 25px;
+                }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+        <div class="container navbar">
+
+            <a href="#home" class="logo">
+                <img src="{% static 'core/images/logo.jpg' %}" />
+                    
+
+                <div class="logo-text">
+                    <strong>MARC<span>MIND</span></strong>
+                    <small>REALIGN COACHING & CONSULTING</small>
+                </div>
+            </a>
+
+            <button class="menu-btn"
+                    id="menuBtn"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#coaching">Coaching</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="nav-dropdown">
+                    <a href="#Translation" class="nav-link">
+                        Translation <span class="dropdown-arrow">⌄</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'english' %}">English</a></li>
+                        <li><a href="{% url 'french' %}">French</a></li>
+                        <li><a href="{% url 'spanish' %}">Spanish</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'booking' %}" class="nav-cta">
+                        Book a Session →
+                    </a>
+                </li>
+
+
+            </ul>
+            <div class="user-menu" id="userMenu">
+            {% if request.user.is_authenticated %}
+                <button class="user-menu-trigger"
+                        id="userMenuButton"
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-controls="userDropdown">
+
+                    <span class="user-avatar" aria-hidden="true">
+                        {% if request.user.first_name and request.user.last_name %}
+                            {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+                        {% else %}
+                            {{ request.user.username|first|upper }}{{ request.user.username|last|upper }}
+                        {% endif %}
+                    </span>
+
+                    <span class="user-trigger-text">
+                        <span class="user-trigger-name">
+                            {% if request.user.first_name %}
+                                {{ request.user.first_name }}
+                            {% else %}
+                                {{ request.user.username }}
+                            {% endif %}
+                        </span>
+                        <span class="user-trigger-label">my account</span>
+                    </span>
+
+                    <span class="user-menu-arrow" aria-hidden="true">⌄</span>
+                </button>
+
+                <div class="user-dropdown" id="userDropdown" role="menu">
+                    <div class="user-dropdown-head">
+                        <div class="user-dropdown-avatar" aria-hidden="true">
+                            {% if request.user.first_name and request.user.last_name %}
+                                {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+                            {% else %}
+                                {{ request.user.username|first|upper }}{{ request.user.username|last|upper }}
+                            {% endif %}
+                        </div>
+
+                        <div class="user-dropdown-identity">
+                            <div class="user-dropdown-name">
+                                {% if request.user.get_full_name %}
+                                    {{ request.user.get_full_name }}
+                                {% else %}
+                                    {{ request.user.username }}
+                                {% endif %}
+                            </div>
+                            {% if request.user.email %}
+                                <div class="user-dropdown-email">{{ request.user.email }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="user-dropdown-divider"></div>
+
+                    <a href="{% url 'dashboard' %}" class="user-dropdown-link" role="menuitem">
+                        <span class="user-dropdown-icon">⌂</span>
+                        Dashboard
+                    </a>
+
+                    <a href="{% url 'library' %}" class="user-dropdown-link" role="menuitem">
+                        <span class="user-dropdown-icon">▣</span>
+                        Library
+                    </a>
+
+                    <a href="{% url 'booking' %}" class="user-dropdown-link" role="menuitem">
+                        <span class="user-dropdown-icon">◷</span>
+                        Book a session
+                    </a>
+
+                    <div class="user-dropdown-divider"></div>
+
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="user-dropdown-logout" role="menuitem">
+                            <span class="user-dropdown-icon">⇥</span>
+                            Sign Out
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-cta">Sign In</a>
+            {% endif %}
+        </div>
+
+ 
+          
+
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container">
+
+                <div class="hero-grid">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            REALIGN • GROW • LEAD • IMPACT
+                        </div>
+
+                        <h1>
+                            Realign Your <span>Mind.</span><br>
+                            Refocus Your <span>Vision.</span><br>
+                            Transform Your <span>Life.</span>
+                        </h1>
+
+                        <p class="hero-description">
+                            MarcMind helps individuals, leaders and businesses gain clarity,
+                            overcome limiting patterns, strengthen their mindset and turn
+                            vision into meaningful action.
+                        </p>
+
+                        <div class="hero-buttons">
+
+                            <a href="#booking" class="btn btn-primary">
+                                Book a Coaching Session →
+                            </a>
+
+                            <a href="#about" class="btn btn-outline">
+                                Discover MarcMind
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero-image">
+
+                        <!-- Replace with your actual MarcMind hero image -->
+                        <img src="{% static 'core/images/cover.jpeg'%}" />
+                             
+
+                        <div class="hero-badge">
+                            <strong>Think. Realign. Become.</strong>
+                            <span>Mindset • Purpose • Leadership • Growth</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pillars">
+
+                    <div class="pillar">
+                        <div class="pillar-icon">◉</div>
+                        <strong>Mindset</strong>
+                        <span>Realignment</span>
+                    </div>
+
+                    <div class="pillar">
+                        <div class="pillar-icon">↗</div>
+                        <strong>Leadership</strong>
+                        <span>Growth</span>
+                    </div>
+
+                    <div class="pillar">
+                        <div class="pillar-icon">◎</div>
+                        <strong>Purpose</strong>
+                        <span>Vision & Clarity</span>
+                    </div>
+
+                    <div class="pillar">
+                        <div class="pillar-icon">◇</div>
+                        <strong>Impact</strong>
+                        <span>Legacy Building</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRUST BAR
+        ========================== -->
+
+        <section class="trust-bar">
+
+            <div class="container trust-content">
+
+                <p>
+                    A strategic space for people ready to think differently,
+                    grow intentionally and lead with clarity.
+                </p>
+
+                <div class="trust-items">
+                    <div class="trust-item">✓ Personal Growth</div>
+                    <div class="trust-item">✓ Leadership</div>
+                    <div class="trust-item">✓ Business Clarity</div>
+                    <div class="trust-item">✓ Purpose & Vision</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SERVICES
+        ========================== -->
+
+        <section class="section services" id="services">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">What We Do</div>
+
+                    <h2>
+                        Coaching & Consulting Designed Around You
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                    <p>
+                        Whether you are navigating personal growth, leadership challenges
+                        or business decisions, MarcMind provides structured guidance
+                        to help you move from confusion to clarity.
+                    </p>
+
+                </div>
+
+
+                <div class="services-grid">
+
+                    <article class="service-card">
+
+                        <div class="service-icon">●</div>
+
+                        <h3>
+                            One-on-One Coaching
+                        </h3>
+
+                        <p>
+                            Personalized coaching sessions designed to help you identify
+                            limiting patterns, gain clarity and move forward with confidence.
+                        </p>
+
+                        <a href="#booking" class="learn">
+                            BOOK A SESSION →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-icon">♟</div>
+
+                        <h3>
+                            Leadership Coaching
+                        </h3>
+
+                        <p>
+                            Develop stronger decision-making, communication, emotional
+                            intelligence and leadership capacity.
+                        </p>
+
+                        <a href="#booking" class="learn">
+                            EXPLORE COACHING →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-icon">↗</div>
+
+                        <h3>
+                            Business Consulting
+                        </h3>
+
+                        <p>
+                            Gain strategic clarity around your ideas, positioning,
+                            business direction, systems and growth opportunities.
+                        </p>
+
+                        <a href="#booking" class="learn">
+                            DISCUSS YOUR BUSINESS →
+                        </a>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-icon">◎</div>
+
+                        <h3>
+                            Vision & Purpose
+                        </h3>
+
+                        <p>
+                            Clarify where you are going, why it matters and what needs
+                            to change to move your vision into action.
+                        </p>
+
+                        <a href="#booking" class="learn">
+                            FIND YOUR CLARITY →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ABOUT
+        ========================== -->
+
+        <section class="section about" id="about">
+
+            <div class="container about-grid">
+
+                <div class="about-image">
+
+                    <!-- Replace with actual MarcMind founder/team image -->
+                    <img src="images/marcmind-about.jpg"
+                         alt="MarcMind Founder and Coach">
+
+                    <div class="about-image-card">
+                        REALIGN YOUR THINKING.
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+                    <div class="label">
+                        ABOUT MARCMIND
+                    </div>
+
+                    <h2>
+                        The Change You Want Begins With How You Think.
+                    </h2>
+
+                    <p>
+                        MarcMind Realign Coaching & Consulting exists to help people
+                        close the gap between where they are and where they know
+                        they can be.
+                    </p>
+
+                    <p>
+                        We believe sustainable transformation begins internally.
+                        When your thinking becomes clearer, your decisions become
+                        stronger, your actions become more intentional and your
+                        results can begin to change.
+                    </p>
+
+                    <ul class="check-list">
+                        <li>Clarity before action</li>
+                        <li>Mindset before momentum</li>
+                        <li>Strategy aligned with purpose</li>
+                        <li>Growth that produces lasting impact</li>
+                    </ul>
+
+                    <div class="signature">
+                        MarcMind
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COACHING PROGRAMS
+        ========================== -->
+
+        <section class="section coaching" id="coaching">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">Choose Your Path</div>
+
+                    <h2>
+                        Coaching Experiences
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                    <p>
+                        Choose the level of support that matches your current season,
+                        goals and desired transformation.
+                    </p>
+
+                </div>
+
+
+                <div class="coaching-grid">
+
+                    <article class="coaching-card">
+
+                        <div class="number">01</div>
+
+                        <h3>
+                            Clarity Session
+                        </h3>
+
+                        <p>
+                            A focused session for when you need perspective,
+                            direction and a practical next step.
+                        </p>
+
+                        <ul>
+                            <li>Focused coaching conversation</li>
+                            <li>Identify the core challenge</li>
+                            <li>Clarify your next move</li>
+                            <li>Action-focused outcome</li>
+                        </ul>
+
+                        <a href="#booking" class="btn btn-outline">
+                            Book Session
+                        </a>
+
+                    </article>
+
+
+                    <article class="coaching-card featured">
+
+                        <div class="popular">
+                            MOST POPULAR
+                        </div>
+
+                        <div class="number">02</div>
+
+                        <h3>
+                            Realignment Coaching
+                        </h3>
+
+                        <p>
+                            Deeper coaching for people ready to work through patterns,
+                            strengthen their mindset and create meaningful change.
+                        </p>
+
+                        <ul>
+                            <li>Personalized coaching</li>
+                            <li>Mindset realignment</li>
+                            <li>Goal and vision clarity</li>
+                            <li>Accountability and action</li>
+                        </ul>
+
+                        <a href="#booking" class="btn btn-primary">
+                            Start Realignment
+                        </a>
+
+                    </article>
+
+
+                    <article class="coaching-card">
+
+                        <div class="number">03</div>
+
+                        <h3>
+                            Leadership & Business Advisory
+                        </h3>
+
+                        <p>
+                            Strategic support for leaders, founders and professionals
+                            navigating growth, change or important decisions.
+                        </p>
+
+                        <ul>
+                            <li>Strategic thinking</li>
+                            <li>Leadership development</li>
+                            <li>Business direction</li>
+                            <li>Decision-making support</li>
+                        </ul>
+
+                        <a href="#booking" class="btn btn-outline">
+                            Book Consultation
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PROCESS
+        ========================== -->
+
+        <section class="section process">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">The MarcMind Method</div>
+
+                    <h2>
+                        From Confusion to Clarity
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                </div>
+
+
+                <div class="process-grid">
+
+                    <article class="process-card">
+
+                        <div class="process-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Realign
+                        </h3>
+
+                        <p>
+                            Understand the beliefs, patterns and perspectives
+                            influencing your current reality.
+                        </p>
+
+                    </article>
+
+
+                    <article class="process-card">
+
+                        <div class="process-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Refocus
+                        </h3>
+
+                        <p>
+                            Clarify your priorities, purpose, goals and the direction
+                            that truly matters.
+                        </p>
+
+                    </article>
+
+
+                    <article class="process-card">
+
+                        <div class="process-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Transform
+                        </h3>
+
+                        <p>
+                            Turn insight into intentional action, stronger decisions
+                            and sustainable growth.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESOURCES
+        ========================== -->
+
+        <section class="section resources" id="resources">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">Resources</div>
+
+                    <h2>
+                        Insights for Your Growth
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                    <p>
+                        Practical ideas and thought-provoking resources to help you
+                        continue the work beyond the coaching room.
+                    </p>
+
+                </div>
+
+
+                <div class="resources-grid">
+
+                    <article class="resource-card">
+
+                        <div class="resource-image">
+                            MINDSET
+                        </div>
+
+                        <div class="resource-content">
+
+                            <div class="resource-tag">
+                                Mindset
+                            </div>
+
+                            <h3>
+                                The Power of a Realigned Mind
+                            </h3>
+
+                            <p>
+                                Your perspective influences your decisions. Learn how
+                                intentional thinking can change the way you approach life.
+                            </p>
+
+                            <a href="#contact" class="learn">
+                                READ MORE →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="resource-card">
+
+                        <div class="resource-image">
+                            LEADERSHIP
+                        </div>
+
+                        <div class="resource-content">
+
+                            <div class="resource-tag">
+                                Leadership
+                            </div>
+
+                            <h3>
+                                Lead Yourself Before Leading Others
+                            </h3>
+
+                            <p>
+                                Strong leadership begins with self-awareness, responsibility
+                                and the willingness to grow.
+                            </p>
+
+                            <a href="#contact" class="learn">
+                                READ MORE →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="resource-card">
+
+                        <div class="resource-image">
+                            PURPOSE
+                        </div>
+
+                        <div class="resource-content">
+
+                            <div class="resource-tag">
+                                Purpose
+                            </div>
+
+                            <h3>
+                                When Your Vision Needs Direction
+                            </h3>
+
+                            <p>
+                                Discover a practical framework for moving from an idea
+                                to a clear and actionable vision.
+                            </p>
+
+                            <a href="#contact" class="learn">
+                                READ MORE →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TESTIMONIALS
+        ========================== -->
+
+        <section class="section testimonials">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">Client Experiences</div>
+
+                    <h2>
+                        Transformation Starts With One Decision
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                    <p>
+                        Replace the sample testimonials below with verified
+                        MarcMind client testimonials before publishing.
+                    </p>
+
+                </div>
+
+
+                <div class="testimonials-grid">
+
+                    <article class="testimonial">
+
+                        <div class="quote">
+                            “
+                        </div>
+
+                        <p>
+                            MarcMind helped me step back, identify what was really
+                            holding me back and create a much clearer direction.
+                        </p>
+
+                        <div class="client">
+                            Client Name
+                            <span>Entrepreneur</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial">
+
+                        <div class="quote">
+                            “
+                        </div>
+
+                        <p>
+                            The coaching gave me the clarity and confidence I needed
+                            to make a decision I had been avoiding for months.
+                        </p>
+
+                        <div class="client">
+                            Client Name
+                            <span>Professional</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial">
+
+                        <div class="quote">
+                            “
+                        </div>
+
+                        <p>
+                            I came with a vision but no structure. The process helped
+                            me turn the idea into practical next steps.
+                        </p>
+
+                        <div class="client">
+                            Client Name
+                            <span>Business Owner</span>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FAQ
+        ========================== -->
+
+        <section class="section faq">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="label">Questions</div>
+
+                    <h2>
+                        Frequently Asked Questions
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                </div>
+
+
+                <div class="faq-container">
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            Who is MarcMind coaching for?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            MarcMind is designed for individuals, professionals,
+                            leaders, entrepreneurs and business owners who want greater
+                            clarity, intentional growth and meaningful progress.
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            What happens during a coaching session?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            Sessions are focused conversations designed to understand
+                            your current situation, identify the key issue, clarify
+                            your desired outcome and establish practical next steps.
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            Is coaching the same as consulting?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            Not exactly. Coaching focuses heavily on your thinking,
+                            decisions, awareness and development. Consulting provides
+                            more strategic guidance around specific professional or
+                            business challenges. Some MarcMind engagements may combine
+                            both approaches.
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            Can I work with MarcMind remotely?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            Yes. Remote sessions can be conducted online, making
+                            MarcMind accessible to clients regardless of location.
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            How do I get started?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            Start by booking a consultation or sending an enquiry
+                            through the contact section. We can then determine the
+                            most appropriate service for your needs.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             BOOKING CTA
+        ========================== -->
+
+        <section class="cta" id="booking">
+
+            <div class="container cta-grid">
+
+                <div>
+
+                    <div class="eyebrow" style="color:#edc35d;">
+                        YOUR NEXT CHAPTER CAN START TODAY
+                    </div>
+
+                    <h2>
+                        Ready to <span>Realign?</span>
+                    </h2>
+
+                    <p>
+                        You don't need to have everything figured out before you
+                        begin. Sometimes the first step is simply creating space
+                        to think clearly and have the right conversation.
+                    </p>
+
+                    <a href="#contact" class="btn btn-primary">
+                        Start a Conversation →
+                    </a>
+
+                </div>
+
+
+                <div class="booking-box">
+
+                    <h3>
+                        Book a MarcMind Session
+                    </h3>
+
+                    <div class="booking-info">
+                        <span>◷</span>
+                        <span>Flexible online consultation</span>
+                    </div>
+
+                    <div class="booking-info">
+                        <span>◎</span>
+                        <span>Personalized coaching or consulting</span>
+                    </div>
+
+                    <div class="booking-info">
+                        <span>◇</span>
+                        <span>Clarity-focused conversation</span>
+                    </div>
+
+                    <!-- Replace # with your actual booking link -->
+                    <a href="#contact"
+                       class="btn">
+                        REQUEST A SESSION →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section class="section contact" id="contact">
+
+            <div class="container contact-grid">
+
+                <div class="contact-info">
+
+                    <div class="section-heading" style="text-align:left;margin-bottom:30px;">
+
+                        <div class="label">
+                            CONTACT MARCMIND
+                        </div>
+
+                        <h2>
+                            Let's Start the Conversation.
+                        </h2>
+
+                        <div class="gold-line"
+                             style="margin-left:0;"></div>
+
+                    </div>
+
+                    <p>
+                        Tell us a little about where you are and what you want
+                        to achieve. We'll help you determine the best next step.
+                    </p>
+
+
+                    <!-- Replace the placeholders below -->
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            ✉
+                        </div>
+
+                        <div>
+                            <strong>Email</strong>
+                            <span>hello@marcmind.com</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            ☎
+                        </div>
+
+                        <div>
+                            <strong>Phone / WhatsApp</strong>
+                            <span>+234 XXX XXX XXXX</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            ◎
+                        </div>
+
+                        <div>
+                            <strong>Sessions</strong>
+                            <span>Online • By Appointment</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form class="contact-form"
+                      id="contactForm">
+
+                    <h3>
+                        Send an Enquiry
+                    </h3>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <input type="text"
+                                   id="name"
+                                   name="name"
+                                   placeholder="Your name"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="you@example.com"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="service">
+                            What are you interested in?
+                        </label>
+
+                        <select id="service"
+                                name="service"
+                                required>
+
+                            <option value="">
+                                Select a service
+                            </option>
+
+                            <option>
+                                One-on-One Coaching
+                            </option>
+
+                            <option>
+                                Leadership Coaching
+                            </option>
+
+                            <option>
+                                Business Consulting
+                            </option>
+
+                            <option>
+                                Purpose & Vision
+                            </option>
+
+                            <option>
+                                General Consultation
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            Tell us about your goal
+                        </label>
+
+                        <textarea id="message"
+                                  name="message"
+                                  placeholder="What would you like support with?"
+                                  required></textarea>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        SEND ENQUIRY →
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+
+                    <strong>
+                        MARC<span>MIND</span>
+                    </strong>
+
+                    <p>
+                        Realign Coaching & Consulting.
+                    </p>
+
+                    <p>
+                        Helping people think clearly, grow intentionally,
+                        lead confidently and create meaningful impact.
+                    </p>
+
+                    <div class="socials">
+
+                        <!-- Replace # with actual social media links -->
+
+                        <a href="#" aria-label="Instagram">
+                            IG
+                        </a>
+
+                        <a href="#" aria-label="Facebook">
+                            FB
+                        </a>
+
+                        <a href="#" aria-label="LinkedIn">
+                            IN
+                        </a>
+
+                        <a href="#" aria-label="YouTube">
+                            YT
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Explore
+                    </h3>
+
+                    <a href="#home">Home</a>
+                    <a href="#about">About MarcMind</a>
+                    <a href="#services">Services</a>
+                    <a href="#coaching">Coaching</a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Resources
+                    </h3>
+
+                    <a href="#resources">Articles</a>
+                    <a href="#resources">Insights</a>
+                    <a href="#resources">Leadership</a>
+                    <a href="#resources">Mindset</a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Get Started
+                    </h3>
+
+                    <a href="#booking">Book a Session</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#faq">FAQs</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="copyright">
+
+                <span>
+                    © <span id="year"></span> MarcMind Consulting. All rights reserved.
+                </span>
+
+                <span>
+                    Realign • Grow • Lead • Impact
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================== -->
+
+    <button class="back-top"
+            id="backTop"
+            aria-label="Back to top">
+        ↑
+    </button>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+ 
+<script>
+
+  /* =========================
+     MOBILE NAVIGATION
+  ========================== */
+
+  const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  menuBtn.addEventListener("click", function () {
+
+    navLinks.classList.toggle("active");
+
+    const isOpen =
+      navLinks.classList.contains("active");
+
+    menuBtn.setAttribute(
+      "aria-expanded",
+      isOpen
+    );
+
+    menuBtn.innerHTML =
+      isOpen ? "✕" : "☰";
+
+  });
+
+
+  /* Close mobile menu after clicking */
+
+  document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.classList.remove("active");
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      menuBtn.innerHTML = "☰";
+
+    });
+
+  });
+
+
+  /* =========================
+     USER ACCOUNT DROPDOWN
+  ========================== */
+
+  const userMenu = document.getElementById("userMenu");
+  const userMenuButton = document.getElementById("userMenuButton");
+  const userDropdown = document.getElementById("userDropdown");
+
+  if (userMenu && userMenuButton && userDropdown) {
+
+    const closeUserMenu = () => {
+      userDropdown.classList.remove("show");
+      userMenuButton.setAttribute("aria-expanded", "false");
+    };
+
+    userMenuButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const willOpen = !userDropdown.classList.contains("show");
+
+      if (willOpen) {
+        userDropdown.classList.add("show");
+        userMenuButton.setAttribute("aria-expanded", "true");
+      } else {
+        closeUserMenu();
+      }
+    });
+
+    userDropdown.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!userMenu.contains(event.target)) {
+        closeUserMenu();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeUserMenu();
+        userMenuButton.focus();
+      }
+    });
+  }
+
+
+  /* =========================
+     FAQ ACCORDION
+  ========================== */
+
+  const faqItems =
+    document.querySelectorAll(".faq-item");
+
+  faqItems.forEach(item => {
+
+    const question =
+      item.querySelector(".faq-question");
+
+    question.addEventListener("click", () => {
+
+      faqItems.forEach(otherItem => {
+
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+        }
+
+      });
+
+      item.classList.toggle("active");
+
+    });
+
+  });
+
+
+  /* =========================
+     CONTACT FORM
+  ========================== */
+
+  const contactForm =
+    document.getElementById("contactForm");
+
+  contactForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("name").value;
+
+    const email =
+      document.getElementById("email").value;
+
+    const service =
+      document.getElementById("service").value;
+
+    const message =
+      document.getElementById("message").value;
+
+
+    /*
+      IMPORTANT:
+
+      This demo currently opens the visitor's
+      email application.
+
+      Replace the email address below with
+      the official MarcMind business email.
+    */
+
+    const recipient =
+      "hello@marcmind.com";
+
+
+    const subject =
+      encodeURIComponent(
+        "Consulta de MarcMind"
+      );
+
+
+    const body =
+      encodeURIComponent(
+        "Nombre: " + name +
+        "\nCorreo electrónico: " + email +
+        "\nServicio: " + service +
+        "\n\nMensaje:\n" + message
+      );
+
+
+    window.location.href =
+      "mailto:" +
+      recipient +
+      "?subject=" +
+      subject +
+      "&body=" +
+      body;
+
+  });
+
+
+  /* =========================
+     BACK TO TOP
+  ========================== */
+
+  const backTop =
+    document.getElementById("backTop");
+
+  window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 500) {
+
+      backTop.classList.add("show");
+
+    } else {
+
+      backTop.classList.remove("show");
+
+    }
+
+  });
+
+
+  backTop.addEventListener("click", function() {
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  });
+
+
+  /* =========================
+     CURRENT YEAR
+  ========================== */
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+  /* =========================
+     SIMPLE SCROLL REVEAL
+  ========================== */
+
+  const revealElements =
+    document.querySelectorAll(
+      ".service-card, .coaching-card, .process-card, .resource-card, .testimonial"
+    );
+
+  const revealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform =
+              "translateY(0)";
+
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+
+  revealElements.forEach(element => {
+
+    element.style.opacity = "0";
+    element.style.transform =
+      "translateY(25px)";
+    element.style.transition =
+      "opacity .6s ease, transform .6s ease";
+
+    revealObserver.observe(element);
+
+  });
+</script>
+
+</body>
+</html>

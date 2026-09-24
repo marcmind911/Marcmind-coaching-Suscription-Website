@@ -1,0 +1,31 @@
+<h1>Create an account</h1><form method="post">{% csrf_token %}{{ form.as_p }}<button>Create Account</button></form>
+<h1>My MarcMind Space</h1><p><a href="{% url 'logout' %}">Log out</a></p>
+{% for service in purchase %}
+    <p>{{ service.service.name }} — Paid.
+    <a href="{% url 'whatsapp' %}">Access WhatsApp</a></p>
+    
+    <h2>Choose a service</h2>
+    {% for service in service %}
+         <p>{{ service.name }}
+          <a href="{% url 'checkout' service.id 'stripe' %}">Pay by card / Stripe</a> · <a href="{% url 'checkout' service.id 'paystack' %}">Pay with Paystack</a></p>
+     {% endfor %}
+     
+
+     
+{% endfor %}
+
+
+
+
+
+
+
+    <div class="form-group">
+                        <label for="sessionType">Preferred Session Type</label>
+                        <select id="sessionType" name="sessionType" required>
+                            <option value="" selected disabled>Select session type</option>
+                            <option value="virtual">Virtual Session</option>
+                            <option value="in-person">In-Person Session</option>
+                            <option value="phone">Phone Session</option>
+                        </select>
+                    </div>

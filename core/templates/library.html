@@ -1,0 +1,1072 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gallery & Resources | MARCMIND</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #214c43;
+            --green-dark: #163b34;
+            --green-light: #2f695b;
+            --gold: #b28a3b;
+            --gold-light: #d5b66b;
+            --cream: #faf8f2;
+            --white: #ffffff;
+            --text: #333;
+            --muted: #777;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        .navbar {
+            width: 100%;
+            background: rgba(33, 76, 67, 0.97);
+            padding: 15px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.12);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .logo-area h2 {
+            color: white;
+            font-size: 21px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(21, 62, 54, 0.87),
+                    rgba(33, 76, 67, 0.90)
+                ),
+                url("{% static 'images/gallery-hero.jpg' %}");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: white;
+        }
+
+        .hero-content span {
+            color: var(--gold-light);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(35px, 6vw, 62px);
+            margin: 12px 0;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            max-width: 650px;
+            margin: auto;
+            color: rgba(255,255,255,0.85);
+            font-size: 16px;
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================== */
+
+        .section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 75px 25px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading span {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            color: var(--green);
+            font-size: 34px;
+            margin: 8px 0;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            max-width: 650px;
+            margin: auto;
+        }
+
+        /* =========================
+           BOOKS
+        ========================== */
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.13);
+        }
+
+        .book-image {
+            height: 330px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .book-card:hover .book-image img {
+            transform: scale(1.04);
+        }
+
+        .book-content {
+            padding: 23px;
+        }
+
+        .book-content h3 {
+            color: var(--green);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .book-content p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .gold-button {
+            display: inline-block;
+            padding: 10px 19px;
+            background: var(--gold);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .gold-button:hover {
+            background: var(--green);
+        }
+
+        /* =========================
+           OUTREACH GALLERY
+        ========================== */
+
+        .outreach-section {
+            background: var(--green);
+        }
+
+        .outreach-section .section-heading h2 {
+            color: white;
+        }
+
+        .outreach-section .section-heading p {
+            color: rgba(255,255,255,0.75);
+        }
+
+        .outreach-section .section-heading span {
+            color: var(--gold-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 514px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+
+        .gallery-item::after {
+            content: "View Photo";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            background: rgba(0,0,0,0.45);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.07);
+        }
+
+        /* =========================
+           EDUCATIVE CONTENT
+        ========================== */
+
+        .education-section {
+            background: white;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .education-card {
+            background: var(--cream);
+            border-radius: 17px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.10);
+        }
+
+        .education-image {
+            height: 210px;
+            overflow: hidden;
+        }
+
+        .education-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .education-content {
+            padding: 23px;
+        }
+
+        .category {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .education-content h3 {
+            color: var(--green);
+            font-size: 19px;
+            margin: 7px 0;
+        }
+
+        .education-content p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+
+        .read-more {
+            color: var(--green);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .read-more:hover {
+            color: var(--gold);
+        }
+
+        /* =========================
+           CALL TO ACTION
+        ========================== */
+
+        .cta {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    var(--green-light)
+                );
+
+            color: white;
+            text-align: center;
+            padding: 75px 25px;
+        }
+
+        .cta h2 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: auto auto 25px;
+            color: rgba(255,255,255,0.82);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 13px 27px;
+            background: var(--gold);
+            color: white;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #122e29;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           LIGHTBOX
+        ========================== */
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 38px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .books-grid,
+            .education-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.large {
+                grid-column: span 2;
+                grid-row: span 1;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 13px 18px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 350px;
+            }
+
+            .section {
+                padding: 55px 18px;
+            }
+
+            .section-heading h2 {
+                font-size: 28px;
+            }
+
+            .books-grid,
+            .education-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.large {
+                height: 280px;
+                grid-column: span 1;
+            }
+
+            .book-image {
+                height: 350px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+
+<nav class="navbar">
+
+    <div class="logo-area">
+
+        <img
+            src="{% static 'core/images/logo.jpg' %}"
+            alt="MARCMIND Logo"
+        >
+
+        <h2>MARCMIND</h2>
+
+    </div>
+
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="{% url 'home' %}">Home</a>
+        </li>
+
+        <li>
+            <a href="#gallery" class="active">
+                Gallery
+            </a>
+        </li>
+
+        <li>
+            <a href="#book">Books</a>
+        </li>
+
+        <li>
+            <a href="#education">Education</a>
+        </li>
+
+        <li>
+            <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="user-dropdown-logout" role="menuitem">
+                            <span class="user-dropdown-icon">⇥</span>
+                            |Sign out
+                        </button>
+                    </form>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span>Explore • Learn • Connect</span>
+
+        <h1>
+            Our Gallery & Resources
+        </h1>
+
+        <p>
+            Discover our latest publications, outreach activities,
+            educational resources and inspiring contents designed
+            to inform, empower and transform lives.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RECENT BOOKS
+========================== -->
+
+<section class="section" id="book">
+
+    <div class="section-heading">
+
+        <span>Publications</span>
+
+        <h2>Recent Published Books</h2>
+
+        <p>
+            Explore our latest books and publications created
+            to inspire learning, growth and meaningful change.
+        </p>
+
+    </div>
+
+
+    <div class="books-grid">
+
+        <!-- Book 1 -->
+
+        <article class="book-card">
+
+            <div class="book-image">
+
+                <img
+                    src="{% static 'core/images/marccover.jpg' %}"
+                    alt="Book cover"
+                >
+
+            </div>
+
+            <div class="book-content">
+
+                <h3>
+                    The Body Always Follow The mind
+                </h3>
+
+                <p>
+                   Aligning Your Mind, Body, And Spirit For A Transformed Life
+                </p>
+
+                <a href="https://www.amazon.sg/Body-Always-Follow-mind-Transformed/dp/B0FPDFFJSZ" class="gold-button">
+                    Read More
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- Book 2 -->
+
+        <article class="book-card">
+
+            <div class="book-image">
+
+                <img
+                    src="{% static 'images/book-2.jpg' %}"
+                    alt="Book cover"
+                >
+
+            </div>
+
+            <div class="book-content">
+
+                <h3>
+                    Building Strong Foundations
+                </h3>
+
+                <p>
+                    Insights and practical lessons for developing
+                    strong personal, professional and community
+                    foundations.
+                </p>
+
+                <a href="#" class="gold-button">
+                    Read More
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- Book 3 -->
+
+        <article class="book-card">
+
+            <div class="book-image">
+
+                <img
+                    src="{% static 'images/book-3.jpg' %}"
+                    alt="Book cover"
+                >
+
+            </div>
+
+            <div class="book-content">
+
+                <h3>
+                    Wisdom for Everyday Life
+                </h3>
+
+                <p>
+                    Educational principles and practical wisdom
+                    for navigating everyday challenges.
+                </p>
+
+                <a href="#" class="gold-button">
+                    Read More
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     OUTREACH GALLERY
+========================== -->
+
+<section class="outreach-section" id="gallery">
+
+    <div class="section">
+
+        <div class="section-heading">
+
+            <span>Our Activities</span>
+
+            <h2>Outreach Pictures</h2>
+
+            <p>
+                A glimpse into our outreach programmes,
+                community activities, events and moments
+                shared with the people we serve.
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+            <div
+                class="gallery-item large"
+                onclick="openLightbox(this)"
+            >
+                <img
+                    src="{% static 'core/images/photo1.jpeg' %}"
+                    alt="Outreach activity"
+                >
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openLightbox(this)"
+            >
+                <img
+                    src="{% static 'core/images/photo2.jpeg' %}"
+                    alt="Community outreach"
+                >
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openLightbox(this)"
+            >
+                <img
+                    src="{% static 'core/images/photo5.jpeg' %}"
+                    alt="Outreach programme"
+                >
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openLightbox(this)"
+            >
+                <img
+                    src="{% static 'core/images/photo4.jpeg' %}"
+                    alt="Community event"
+                >
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openLightbox(this)"
+            >
+                <img
+                    src="{% static 'core/images/photo3.jpeg' %}"
+                    alt="Community activity"
+                >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     EDUCATIVE CONTENT
+========================== -->
+
+<section class="education-section" id="education">
+
+    <div class="section">
+
+        <div class="section-heading">
+
+            <span>Learn & Grow</span>
+
+            <h2>Educative Contents</h2>
+
+            <p>
+                Access educational articles, teachings and
+                valuable resources created to encourage
+                personal and community development.
+            </p>
+
+        </div>
+
+
+        <div class="education-grid">
+
+
+            <!-- Content 1 -->
+
+            <article class="education-card">
+
+                <div class="education-image">
+
+                    <img
+                        src="{% static 'images/education-1.jpg' %}"
+                        alt="Educational content"
+                    >
+
+                </div>
+
+                <div class="education-content">
+
+                    <span class="category">
+                        Personal Development
+                    </span>
+
+                    <h3>
+                        Discovering Your Purpose
+                    </h3>
+
+                    <p>
+                        Learn practical principles that can help
+                        you understand your strengths, values and
+                        purpose.
+                    </p>
+
+                    <a href="#" class="read-more">
+                        Read Article →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- Content 2 -->
+
+            <article class="education-card">
+
+                <div class="education-image">
+
+                    <img
+                        src="{% static 'images/education-2.jpg' %}"
+                        alt="Educational content"
+                    >
+
+                </div>
+
+                <div class="education-content">
+
+                    <span class="category">
+                        Leadership
+                    </span>
+
+                    <h3>
+                        Developing Effective Leadership
+                    </h3>
+
+                    <p>
+                        Explore practical principles for becoming
+                        a responsible and effective leader.
+                    </p>
+
+                    <a href="#" class="read-more">
+                        Read Article →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- Content 3 -->
+
+            <article class="education-card">
+
+                <div class="education-image">
+
+                    <img
+                        src="{% static 'images/education-3.jpg' %}"
+                        alt="Educational content"
+                    >
+
+                </div>
+
+                <div class="education-content">
+
+                    <span class="category">
+                        Community
+                    </span>
+
+                    <h3>
+                        Building Better Communities
+                    </h3>
+
+                    <p>
+                        Discover ideas and strategies that can
+                        contribute to stronger and healthier
+                        communities.
+                    </p>
+
+                    <a href="#" class="read-more">
+                        Read Article →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CALL TO ACTION
+========================== -->
+
+<section class="cta">
+
+    <h2>
+        Keep Learning. Keep Growing.
+    </h2>
+
+    <p>
+        Explore our resources and stay connected with our latest
+        publications, educational materials and outreach activities.
+    </p>
+
+    <a href="#" class="cta-button">
+        Explore More
+    </a>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    © {% now "Y" %} MARCMIND.
+    All Rights Reserved.
+
+</footer>
+
+
+<!-- =========================
+     LIGHTBOX
+========================== -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+    onclick="closeLightbox()"
+>
+
+    <span class="close-lightbox">
+        &times;
+    </span>
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Gallery preview"
+    >
+
+</div>
+
+
+<script>
+
+    function openLightbox(element) {
+
+        const image =
+            element.querySelector("img");
+
+        const lightbox =
+            document.getElementById("lightbox");
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+        lightboxImage.src = image.src;
+
+        lightbox.style.display = "flex";
+    }
+
+
+    function closeLightbox() {
+
+        document.getElementById("lightbox")
+            .style.display = "none";
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
