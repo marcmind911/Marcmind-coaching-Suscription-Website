@@ -16,47 +16,48 @@ MIDDLEWARE = ["django.middleware.security.SecurityMiddleware", "whitenoise.middl
 ROOT_URLCONF = "config.urls"
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates", "DIRS": [BASE_DIR / "templates"], "APP_DIRS": True, "OPTIONS": {"context_processors": ["django.template.context_processors.request", "django.contrib.auth.context_processors.auth", "django.contrib.messages.context_processors.messages"]}}]
 WSGI_APPLICATION = "config.wsgi.application"
-DATABASE_URL = next(
-    (
-        os.environ.get(name, "").strip()
-        for name in (
-            "DATA_DATABASE_URL",
-            "DATA_POSTGRES_PRISMA_URL",
-            "DATA_POSTGRES_URL",
-            "DATA_POSTGRES_URL_NON_POOLING",
-            "DATABASE_URL",
-        )
-        if os.environ.get(name, "").strip()
-    ),
-    "",
+DATABASE_URL_VARIABLES = (
+    "DATA_DATABASE_URL",
+    "DATA_POSTGRES_PRISMA_URL",
+    "DATA_POSTGRES_URL",
+    "DATA_POSTGRES_URL_NON_POOLING",
+    "DATABASE_URL",
 )
+DATABASES = None
 
-if DATABASE_URL:
-    DATABASES = {
-        "default": dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
-    if DATABASES["default"]["ENGINE"] != "django.db.backends.postgresql":
-        from django.core.exceptions import ImproperlyConfigured
+for variable_name in DATABASE_URL_VARIABLES:
+    database_url = os.environ.get(variable_name, "").strip()
+    if not database_url:
+        continue
 
-        raise ImproperlyConfigured("The configured database must be PostgreSQL.")
-elif os.environ.get("DJANGO_USE_SQLITE", "").lower() == "true":
-    DATABASES = {
+    database_config = dj_database_url.parse(
+        database_url,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+    if database_config["ENGINE"] == "django.db.backends.postgresql":
+        DATABASES = {"default": database_config}
+        break
+
+if DATABASES is None:
+    sqlite_config = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-else:
-    from django.core.exceptions import ImproperlyConfigured
+    if os.environ.get("DJANGO_USE_SQLITE", "").lower() == "true":
+        DATABASES = sqlite_config
+    elif os.environ.get("CI", "").lower() in {"1", "true"}:
+        # Vercel imports settings during build discovery; runtime still requires PostgreSQL.
+        DATABASES = sqlite_config
+    else:
+        from django.core.exceptions import ImproperlyConfigured
 
-    raise ImproperlyConfigured(
-        "A PostgreSQL DATABASE_URL is required in production. Configure "
-        "DATABASE_URL or DATA_DATABASE_URL for this deployment."
-    )
+        raise ImproperlyConfigured(
+            "A PostgreSQL DATABASE_URL is required at runtime. Configure "
+            "DATABASE_URL or DATA_DATABASE_URL for this deployment."
+        )
 
 
 AUTH_PASSWORD_VALIDATORS = [{"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"}, {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"}, {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"}, {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"}]
