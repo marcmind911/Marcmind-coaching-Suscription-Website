@@ -40,7 +40,7 @@ if DATABASE_URL:
         from django.core.exceptions import ImproperlyConfigured
 
         raise ImproperlyConfigured("The configured database must be PostgreSQL.")
-elif DEBUG and not os.environ.get("VERCEL"):
+elif os.environ.get("DJANGO_USE_SQLITE", "").lower() == "true":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
