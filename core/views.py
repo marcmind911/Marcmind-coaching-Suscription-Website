@@ -9,11 +9,14 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.cache import never_cache
 from .forms import SignUpForm, UsernameReminderForm
 from .models import Purchase, Service
 
 def home(request): return render(request, "landing.html", {"services": Service.objects.filter(active=True)})
+@never_cache
+@ensure_csrf_cookie
 def signup(request):
     form = SignUpForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
