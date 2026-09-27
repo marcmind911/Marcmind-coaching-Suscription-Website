@@ -90,4 +90,8 @@ SITE_URL = os.environ.get(
     "SITE_URL",
     "http://127.0.0.1:8000"
 )
-CSRF_TRUSTED_ORIGINS = ["https://marcmind.com","https://www.marcmind.com",  "https://*.vercel.app",]
+CSRF_TRUSTED_ORIGINS = [
+    "https://marcmind.com",
+    "https://www.marcmind.com",
+    "https://*.vercel.app",
+]
