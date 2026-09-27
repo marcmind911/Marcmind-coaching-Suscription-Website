@@ -13,7 +13,20 @@ MIDDLEWARE = ["django.middleware.security.SecurityMiddleware", "whitenoise.middl
 ROOT_URLCONF = "config.urls"
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates", "DIRS": [BASE_DIR / "templates"], "APP_DIRS": True, "OPTIONS": {"context_processors": ["django.template.context_processors.request", "django.contrib.auth.context_processors.auth", "django.contrib.messages.context_processors.messages"]}}]
 WSGI_APPLICATION = "config.wsgi.application"
-DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("DATA_DATABASE_URL")
+DATABASE_URL = next(
+    (
+        os.environ.get(name, "").strip()
+        for name in (
+            "DATABASE_URL",
+            "DATA_DATABASE_URL",
+            "DATA_POSTGRES_PRISMA_URL",
+            "DATA_POSTGRES_URL",
+            "DATA_POSTGRES_URL_NON_POOLING",
+        )
+        if os.environ.get(name, "").strip()
+    ),
+    "",
+)
 
 if DATABASE_URL:
     DATABASES = {
@@ -23,13 +36,20 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
-else:
+elif DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+else:
+    from django.core.exceptions import ImproperlyConfigured
+
+    raise ImproperlyConfigured(
+        "A PostgreSQL DATABASE_URL is required in production. Configure "
+        "DATABASE_URL or DATA_DATABASE_URL for this deployment."
+    )
 
 
 AUTH_PASSWORD_VALIDATORS = [{"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"}, {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"}, {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"}, {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"}]
