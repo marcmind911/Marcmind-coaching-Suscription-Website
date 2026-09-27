@@ -13,7 +13,7 @@ MIDDLEWARE = ["django.middleware.security.SecurityMiddleware", "whitenoise.middl
 ROOT_URLCONF = "config.urls"
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates", "DIRS": [BASE_DIR / "templates"], "APP_DIRS": True, "OPTIONS": {"context_processors": ["django.template.context_processors.request", "django.contrib.auth.context_processors.auth", "django.contrib.messages.context_processors.messages"]}}]
 WSGI_APPLICATION = "config.wsgi.application"
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL") or os.environ.get("DATA_DATABASE_URL")
 
 if DATABASE_URL:
     DATABASES = {
