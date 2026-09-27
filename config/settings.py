@@ -40,24 +40,12 @@ for variable_name in DATABASE_URL_VARIABLES:
         break
 
 if DATABASES is None:
-    sqlite_config = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-    if os.environ.get("DJANGO_USE_SQLITE", "").lower() == "true":
-        DATABASES = sqlite_config
-    elif os.environ.get("CI", "").lower() in {"1", "true"}:
-        # Vercel imports settings during build discovery; runtime still requires PostgreSQL.
-        DATABASES = sqlite_config
-    else:
-        from django.core.exceptions import ImproperlyConfigured
+    from django.core.exceptions import ImproperlyConfigured
 
-        raise ImproperlyConfigured(
-            "A PostgreSQL DATABASE_URL is required at runtime. Configure "
-            "DATABASE_URL or DATA_DATABASE_URL for this deployment."
-        )
+    raise ImproperlyConfigured(
+        "A PostgreSQL database URL is required. Configure DATABASE_URL "
+        "or DATA_DATABASE_URL with your Neon connection string."
+    )
 
 
 AUTH_PASSWORD_VALIDATORS = [{"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"}, {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"}, {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"}, {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"}]
