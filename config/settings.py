@@ -17,11 +17,11 @@ DATABASE_URL = next(
     (
         os.environ.get(name, "").strip()
         for name in (
-            "DATABASE_URL",
             "DATA_DATABASE_URL",
             "DATA_POSTGRES_PRISMA_URL",
             "DATA_POSTGRES_URL",
             "DATA_POSTGRES_URL_NON_POOLING",
+            "DATABASE_URL",
         )
         if os.environ.get(name, "").strip()
     ),
@@ -36,7 +36,11 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
-elif DEBUG:
+    if DATABASES["default"]["ENGINE"] != "django.db.backends.postgresql":
+        from django.core.exceptions import ImproperlyConfigured
+
+        raise ImproperlyConfigured("The configured database must be PostgreSQL.")
+elif DEBUG and not os.environ.get("VERCEL"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
