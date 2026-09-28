@@ -235,6 +235,21 @@
             margin: 15px 0 0;
         }
 
+        .booking-alerts {
+            margin-bottom: 18px;
+            padding: 14px 16px;
+            border: 1px solid #f0c7c4;
+            border-radius: 8px;
+            background: #fff3f2;
+            color: #8c2923;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .booking-alerts p {
+            margin: 0;
+        }
+
         @media (max-width: 900px) {
             .booking-layout {
                 grid-template-columns: 1fr;
@@ -377,6 +392,14 @@
             </div>
 
             <div class="booking-card">
+                {% if messages %}
+                    <div class="booking-alerts" role="status" aria-live="polite">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <div class="card-heading">
                     <p>START YOUR JOURNEY</p>
                     <h2>Reserve Your Session</h2>

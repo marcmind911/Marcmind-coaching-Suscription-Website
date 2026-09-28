@@ -1,4 +1,8 @@
-import uuid, requests, stripe
+import logging
+import uuid
+
+import requests
+import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
@@ -13,6 +17,8 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.cache import never_cache
 from .forms import SignUpForm, UsernameReminderForm
 from .models import Purchase, Service
+
+logger = logging.getLogger(__name__)
 
 def home(request): return render(request, "landing.html", {"services": Service.objects.filter(active=True)})
 @never_cache
@@ -36,18 +42,77 @@ def checkout(request, service_id, provider):
     service = get_object_or_404(Service, id=service_id, active=True); reference = uuid.uuid4().hex
     purchase = Purchase.objects.create(user=request.user, service=service, provider=provider, reference=reference)
     if provider == "stripe":
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        session = stripe.checkout.Session.create(mode="payment", line_items=[{"price_data":{"currency":service.currency.lower(),"product_data":{"name":service.name},"unit_amount":service.amount*100},"quantity":1}], success_url=settings.SITE_URL + reverse("stripe_success") + "?session_id={CHECKOUT_SESSION_ID}", cancel_url=settings.SITE_URL + reverse("booking"), metadata={"purchase_id": purchase.id})
-        purchase.reference = session.id; purchase.save(update_fields=["reference"]); return redirect(session.url)
+        if not settings.STRIPE_SECRET_KEY:
+            logger.error("Stripe checkout is not configured for purchase %s", purchase.pk)
+            purchase.status = Purchase.Status.FAILED
+            purchase.save(update_fields=["status"])
+            messages.error(request, "Stripe is temporarily unavailable. Please try another payment method or contact us.")
+            return redirect("booking")
+
+        try:
+            stripe_client = stripe.StripeClient(settings.STRIPE_SECRET_KEY)
+            session = stripe_client.v1.checkout.sessions.create(
+                {
+                    "mode": "payment",
+                    "line_items": [
+                        {
+                            "price_data": {
+                                "currency": service.currency.lower(),
+                                "product_data": {"name": service.name},
+                                "unit_amount": service.amount * 100,
+                            },
+                            "quantity": 1,
+                        }
+                    ],
+                    "success_url": settings.SITE_URL + reverse("stripe_success") + "?session_id={CHECKOUT_SESSION_ID}",
+                    "cancel_url": settings.SITE_URL + reverse("booking"),
+                    "metadata": {"purchase_id": str(purchase.id)},
+                },
+                options={"idempotency_key": f"stripe-checkout-{purchase.reference}"},
+            )
+        except stripe.StripeError as error:
+            logger.error(
+                "Stripe checkout failed for purchase %s (type=%s, code=%s)",
+                purchase.pk,
+                type(error).__name__,
+                getattr(error, "code", None),
+            )
+            purchase.status = Purchase.Status.FAILED
+            purchase.save(update_fields=["status"])
+            messages.error(request, "Stripe is temporarily unavailable. Your payment was not processed. Please try another payment method or contact us.")
+            return redirect("booking")
+
+        purchase.reference = session.id
+        purchase.save(update_fields=["reference"])
+        return redirect(session.url)
     if provider == "paystack":
         response = requests.post("https://api.paystack.co/transaction/initialize", headers={"Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"}, json={"email":request.user.email,"amount":service.amount,"currency":service.currency,"reference":reference,"callback_url":settings.SITE_URL + reverse("paystack_callback")}, timeout=15).json()
         if response.get("status"): return redirect(response["data"]["authorization_url"])
     purchase.delete(); messages.error(request, "Payment provider is unavailable."); return redirect("booking")
 def stripe_success(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    session = stripe.checkout.Session.retrieve(request.GET.get("session_id", ""))
-    if session.payment_status == "paid": Purchase.objects.filter(reference=session.id, user=request.user).update(status=Purchase.Status.PAID)
-    return redirect("whatsapp")
+    session_id = request.GET.get("session_id", "")
+    if not session_id or not settings.STRIPE_SECRET_KEY:
+        messages.error(request, "We could not verify your Stripe payment. Please contact us before trying again.")
+        return redirect("booking")
+
+    try:
+        stripe_client = stripe.StripeClient(settings.STRIPE_SECRET_KEY)
+        session = stripe_client.v1.checkout.sessions.retrieve(session_id)
+    except stripe.StripeError as error:
+        logger.error(
+            "Stripe payment verification failed (type=%s, code=%s)",
+            type(error).__name__,
+            getattr(error, "code", None),
+        )
+        messages.error(request, "We could not verify your Stripe payment. Please contact us before trying again.")
+        return redirect("booking")
+
+    if session.payment_status == "paid":
+        Purchase.objects.filter(reference=session.id, user=request.user).update(status=Purchase.Status.PAID)
+        return redirect("whatsapp")
+
+    messages.error(request, "Stripe has not confirmed this payment yet. Please contact us if you were charged.")
+    return redirect("booking")
 def paystack_callback(request):
     ref = request.GET.get("reference", ""); response = requests.get(f"https://api.paystack.co/transaction/verify/{ref}", headers={"Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}"}, timeout=15).json()
     if response.get("data", {}).get("status") == "success": Purchase.objects.filter(reference=ref, user=request.user).update(status=Purchase.Status.PAID); return redirect("whatsapp")
