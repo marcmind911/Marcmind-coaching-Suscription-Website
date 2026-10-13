@@ -61,7 +61,14 @@ LOGOUT_REDIRECT_URL = "home"
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend",)
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "hello@example.com")
 
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "").strip()
+# Prefer the explicitly configured live key in production, while retaining the
+# standard key name as a fallback for existing environments.
+STRIPE_SECRET_KEY = (
+    os.environ.get("STRIPE_LIVE_SECRET_KEY")
+    or os.environ.get("STRIPE_SECRET_KEY")
+    or os.environ.get("STRIPE_TEST_SECRET_KEY")
+    or ""
+).strip()
 
 STRIPE_WEBHOOK_SECRET = os.environ.get(
     "STRIPE_WEBHOOK_SECRET", ""
