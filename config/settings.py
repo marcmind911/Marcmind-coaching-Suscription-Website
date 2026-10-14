@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+from urllib.parse import quote_plus
+
 from dotenv import load_dotenv
 import dj_database_url
 
@@ -38,6 +40,35 @@ for variable_name in DATABASE_URL_VARIABLES:
     if database_config["ENGINE"] == "django.db.backends.postgresql":
         DATABASES = {"default": database_config}
         break
+
+# Neon integrations may expose connection fields instead of a single URL.
+# Build the URL at runtime so Django can boot in every Vercel environment.
+if DATABASES is None:
+    database_host = (
+        os.environ.get("DATA_PGHOST")
+        or os.environ.get("DATA_PGHOST_UNPOOLED")
+        or os.environ.get("DB_HOST")
+    )
+    database_name = (
+        os.environ.get("DATA_PGDATABASE")
+        or os.environ.get("DATA_POSTGRES_DATABASE")
+        or os.environ.get("DB_NAME")
+    )
+    database_user = os.environ.get("DATA_PGUSER") or os.environ.get("DB_USER")
+    database_password = os.environ.get("DATA_PGPASSWORD") or os.environ.get("DB_PASSWORD")
+
+    if all((database_host, database_name, database_user, database_password)):
+        database_url = (
+            f"postgresql://{quote_plus(database_user)}:{quote_plus(database_password)}"
+            f"@{database_host}/{quote_plus(database_name)}?sslmode=require"
+        )
+        DATABASES = {
+            "default": dj_database_url.parse(
+                database_url,
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
 
 if DATABASES is None:
     from django.core.exceptions import ImproperlyConfigured
