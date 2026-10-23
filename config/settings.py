@@ -12,7 +12,13 @@ DEBUG = (
     os.environ.get("DEBUG", "False").lower() == "true"
     and os.environ.get("VERCEL") != "1"
 )
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","marcmind.com,www.marcmind.com").split(",")
+configured_hosts = os.environ.get("ALLOWED_HOSTS", "marcmind.com,www.marcmind.com").split(",")
+vercel_hostname = os.environ.get("VERCEL_URL", "").strip()
+ALLOWED_HOSTS = [host.strip() for host in configured_hosts if host.strip()]
+if vercel_hostname:
+    ALLOWED_HOSTS.append(vercel_hostname)
+if os.environ.get("VERCEL") == "1":
+    ALLOWED_HOSTS.append(".vercel.app")
 INSTALLED_APPS = ["django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes", "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles", "core"]
 MIDDLEWARE = ["django.middleware.security.SecurityMiddleware", "whitenoise.middleware.WhiteNoiseMiddleware", "django.contrib.sessions.middleware.SessionMiddleware", "django.middleware.common.CommonMiddleware", "django.middleware.csrf.CsrfViewMiddleware", "django.contrib.auth.middleware.AuthenticationMiddleware", "django.contrib.messages.middleware.MessageMiddleware", "django.middleware.clickjacking.XFrameOptionsMiddleware"]
 ROOT_URLCONF = "config.urls"
