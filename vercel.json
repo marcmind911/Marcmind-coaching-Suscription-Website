@@ -11,6 +11,10 @@
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/core/static/core/images/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "api/index.py"
     }
